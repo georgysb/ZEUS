@@ -1,0 +1,174 @@
+-------------------------------------- PIO <-> TFT
+RS(D/C#) <-> A7	
+WR# <-> A6
+RD# <-> A5
+D0-7 <-> B0-7
+-------------------------------------- CPU <-> PIO
+B/A# - Addr0
+C/D# - Addr1
+(0, 0, C/D#, B/A#)
+port 0x10 dataA
+port 0x11 dataB
+port 0x12 comA
+port 0x13 comB
+
+0xxx0011	Interrupt disable	(03h)
+11xx1111	Mode3		(CFh)
+11111111	Input		(FFh)
+00000000	Output		(00h)
+-------------------------------------------------------- PIO ports config
+0x3E, 0x03, 0xD3, 0x12, 0x3E, 0xCF, 0xD3, 0x12, 0x3E, 0x04, 0xD3, 0x12, 	0x3E, 0x03, 0xD3, 0x13, 0x3E, 0xCF, 0xD3, 0x13, 0x3E, 0x00, 0xD3, 0x13, 	24bytes
+LD A, 03h		0x3E, 0x03, 	//interrupt disable
+OUT (12h), A	0xD3, 0x12, 	//instA <-- 0x03
+LD A, CFh		0x3E, 0xCF, 	//mode 3
+OUT (12h), A	0xD3, 0x12, 	//instA <-- 0xCF
+LD A, 04h		0x3E, 0x04, 	//IO register
+OUT (12h), A	0xD3, 0x12, 	//instA <-- 0x04 (SDO output)
+LD A, 03h		0x3E, 0x03, 	//interrupt disable
+OUT (13h), A	0xD3, 0x13, 	//instB <-- 0x03
+LD A, CFh		0x3E, 0xCF, 	//mode 3
+OUT (13h), A	0xD3, 0x13, 	//instB <-- 0xCF
+LD A, 00h		0x3E, 0x00, 	//IO register
+OUT (13h), A	0xD3, 0x13, 	//instB <-- 0x00
+-------------------------------------------------------- TFT subroutines
+TFT wr com: (input D) (+0x000C)
+LD A, D		1	0x7A, 
+OUT (11h), A	2	0xD3, 0x11, 	//dataB <-- D
+LD A, 21h		2	0x3E, 0x20, 	//(0010)
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- 0x20
+LD A, 61h		2	0x3E, 0x61, 	//(0110)
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- 0x60
+RET		1	0xC9, 
+
+TFT wr data: (input D) (+0x000C)
+LD A, D		1	0x7A, 
+OUT (11h), A	2	0xD3, 0x11, 	//dataB <-- D
+LD A, A0h		2	0x3E, 0xA0, 	//(1010)
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- 0xA0
+LD A, E1h		2	0x3E, 0xE1, 	//(1110)
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- 0xE0
+RET		1	0xC9, 
+
+TFT rd data: (input D) (+0x000C)
+LD A, D		1	0x7A, 
+OUT (11h), A	2	0xD3, 0x11, 	//dataB <-- D
+LD A, C0h		2	0x3E, 0xC0 	//(1100)
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- 0xC0
+LD A, E1h		2	0x3E, 0xE1, 	//(1110)
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- 0xE0
+RET		1	0xC9, 
+============================================================= SD
+-------------------------------------- PIO <-> SD
+SCK <-> A3
+DO <-> A2
+DI <-> A1
+SS <-> A0
+-------------------------------------- CPU <-> PIO
+port 0x10 dataA
+port 0x12 comA
+--------------------------------------------------------------------------------//SD wr byte (input HL)(+0x0082)
+XOR A		1	0xAF, 
+BIT 7, (HL)		2	0xC8, 0x7E, 	//test b7 (16)
+SET 1, A		2	0xC8, 0xCF, 
+JR NZ, 2		2	0x20, 0x02, 
+RES 1, A		2	0xC8, 0x8F, 
+SET 3, A		2	0xC8, 0xDF, 	//SCK
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+RES 3, A		2	0xC8, 0x9F, 	//SCK#
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+
+BIT 6, (HL)		2	0xC8, 0x76, 	//test b6 (16)
+SET 1, A		2	0xC8, 0xCF, 
+JR NZ, 2		2	0x20, 0x02, 
+RES 1, A		2	0xC8, 0x8F, 
+SET 3, A		2	0xC8, 0xDF, 	//SCK
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+RES 3, A		2	0xC8, 0x9F, 	//SCK#
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+
+BIT 5, (HL)		2	0xC8, 0x6E, 	//test b5 (16)
+SET 1, A		2	0xC8, 0xCF, 
+JR NZ, 2		2	0x20, 0x02, 
+RES 1, A		2	0xC8, 0x8F, 
+SET 3, A		2	0xC8, 0xDF, 	//SCK
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+RES 3, A		2	0xC8, 0x9F, 	//SCK#
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+
+BIT 4, (HL)		2	0xC8, 0x66, 	//test b4 (16)
+SET 1, A		2	0xC8, 0xCF, 
+JR NZ, 2		2	0x20, 0x02, 
+RES 1, A		2	0xC8, 0x8F, 
+SET 3, A		2	0xC8, 0xDF, 	//SCK
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+RES 3, A		2	0xC8, 0x9F, 	//SCK#
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+
+BIT 3, (HL)		2	0xC8, 0x5E, 	//test b3 (16)
+SET 1, A		2	0xC8, 0xCF, 
+JR NZ, 2		2	0x20, 0x02, 
+RES 1, A		2	0xC8, 0x8F, 
+SET 3, A		2	0xC8, 0xDF, 	//SCK
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+RES 3, A		2	0xC8, 0x9F, 	//SCK#
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+
+BIT 2, (HL)		2	0xC8, 0x56, 	//test b2 (16)
+SET 1, A		2	0xC8, 0xCF, 
+JR NZ, 2		2	0x20, 0x02, 
+RES 1, A		2	0xC8, 0x8F, 
+SET 3, A		2	0xC8, 0xDF, 	//SCK
+OUT (10h), A	2	0xD3, 0x10, 	//dataB <-- A
+RES 3, A		2	0xC8, 0x9F, 	//SCK#
+OUT (10h), A	2	0xD3, 0x10, 	//dataB <-- A
+
+BIT 1, (HL)		2	0xC8, 0x4E, 	//test b1 (16)
+SET 1, A		2	0xC8, 0xCF, 
+JR NZ, 2		2	0x20, 0x02, 
+RES 1, A		2	0xC8, 0x8F, 
+SET 3, A		2	0xC8, 0xDF, 	//SCK
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+RES 3, A		2	0xC8, 0x9F, 	//SCK#
+OUT (10h), A	2	0xD3, 0x101, 	//dataA <-- A
+
+BIT 0, (HL)		2	0xC8, 0x46, 	//test b0 (16)
+SET 1, A		2	0xC8, 0xCF, 
+JR NZ, 2		2	0x20, 0x02, 
+RES 1, A		2	0xC8, 0x8F, 
+SET 3, A		2	0xC8, 0xDF, 	//SCK
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+RES 3, A		2	0xC8, 0x9F, 	//SCK#
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+
+RET		1	0xC9, 
+--------------------------------------------------------------------------------//SD rd byte [output (HL)](+0x0018)
+PUSH BC		1	0xC5, 		//(3)
+LD C, 8		2	0x0E, 0x08, 
+next_bit:
+SET 3, A		2	0xC8, 0xDF, 	//SCK (19)
+IN A, (10h) 	2	0xDB, 0x10, 	//dataA <-- A
+BIT 2, A		2	0xC8, 0x57, 	//test sdo (16)
+SCF		1	0x37, 
+JR NZ, 1		2	0x20, 0x01, 
+CCF		1	0x3F, 
+RL (HL)		2	0xCB, 0x16, 
+RES 3, A		2	0xC8, 0x9F, 	//SCK#
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+DEC C		1	0x0D, 
+JR NZ, next_bit:	2	0x20, 0xED, 
+
+POP BC		1	0xC1, 		//(2)
+RET		1	0xC9, 
+--------------------------------------------------------------------------------//SD wr block (input HL BC) (+0x0012)
+LD A, 01h		2	0x3E, 0x01, 	//SCK# DI# SS#
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+CALL, sd_wr_byte	3	0xCD, 0xll, 0xhh, 
+INC HL		1	0x23, 
+DEC BC		1	0xDB, 
+JR Z, 2		2	0x28, 0x02, 
+JR, -9		2	0x18, 0xF7, 
+LD A, 00h		2	0x3E, 0x01, 	//SCK# DI# SS
+OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- A
+RET		1	0xC9, 
+--------------------------------------------------------------------------------//SD commands
+0x40, 0x00, 0x00, 0x00, 0x00, 0x95, 		//CMD0(+CRC) Reset

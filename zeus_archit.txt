@@ -1,0 +1,22 @@
+32kB	EEPROM (AT28C256)
+128kB	SRAM (AS6C1008)
+CPU: Z80
+SYS REG (q0-q7): port #F0
+//-------------------------------------------- memory map
+EEPROM:	$0000 - $7FFF bank F	Qreg #XF
+SRAM:	$0000 - $7FFF bank C-E	Qreg #XC-E
+SRAM:	$8000 - $FFFF himem
+//-------------------------------------------- io
+SIO: port #0X
+0x00	SIO portA data
+0x01	SIO portB data
+0x02	SIO portA com
+0x03	SIO portB com
+PIO: port #1X
+0x10	PIO portA data
+0x11	PIO portB data
+0x12	PIO portA com
+0x13	PIO portB com
+
+
+

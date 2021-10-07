@@ -1,0 +1,44 @@
+-------------------------------------------------------------------------------------------------// SIO ports config
+//port A
+LD A, 18h			0x3E, 0x18, //WR0 SIO reset
+OUT (02h), A		0xD3, 0x02, 
+LD A, 14h			0x3E, 0x14, //WR4 reset ext/status int
+OUT (02h), A		0xD3, 0x02, 
+LD A, C4h			0x3E, 0xC4, /x64 clock/1stop bit
+OUT (02h), A		0xD3, 0x02, 
+LD A, 03h			0x3E, 0x03, //WR3
+OUT (02h), A		0xD3, 0x02, 
+LD A, C1h			0x3E, 0xC1, //8bit/Rx enable
+OUT (02h), A		0xD3, 0x02, 
+LD A, 05h			0x3E, 0x05, //WR5
+OUT (02h), A		0xD3, 0x02, 
+LD A, 68h			0x3E, 0x60, //8 bit/Tx enable
+OUT (02h), A		0xD3, 0x02, 
+LD A, 11h			0x3E, 0x11, //WR1 reset ext/status int
+OUT (02h), A		0xD3, 0x02, 
+LD A, 9Ch			0x3E, 0x9C, //Wait ON/Rx int all char no parity/status not affects
+OUT (02h), A		0xD3, 0x02, 
+
+//port B
+LD A, 18h			0x3E, 0x18, //WR0 SIO reset
+OUT (03h), A		0xD3, 0x03, 
+LD A, 14h			0x3E, 0x14, //WR4 reset ext/status int
+OUT (03h), A		0xD3, 0x03, 
+LD A, C4h			0x3E, 0x05, ///x1 clock/1 stop bit/parity odd
+OUT (03h), A		0xD3, 0x03, 
+LD A, 03h			0x3E, 0x03, //WR3
+OUT (03h), A		0xD3, 0x03, 
+LD A, C1h			0x3E, 0xC1, //8bit/Rx enable
+OUT (03h), A		0xD3, 0x03, 
+LD A, 05h			0x3E, 0x05, //WR5
+OUT (03h), A		0xD3, 0x03, 
+LD A, 60h			0x3E, 0x68, //8 bit/Tx disable
+OUT (03h), A		0xD3, 0x03, 
+LD A, 11h			0x3E, 0x11, //WR1 reset ext/status int
+OUT (03h), A		0xD3, 0x03, 
+LD A, 1Ch			0x3E, 0x1C, //Rx int all char no parity/status affects
+OUT (03h), A		0xD3, 0x03, 
+LD A, 02h			0x3E, 0x02, //WR2 (port B)
+OUT (03h), A		0xD3, 0x03, 
+LD A, 00h			0x3E, 0x00, //interrupt vector 00
+OUT (03h), A		0xD3, 0x03, 
