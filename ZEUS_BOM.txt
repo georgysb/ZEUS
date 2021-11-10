@@ -1,0 +1,99 @@
+----------------------------------ZEUS6 (backboard)
+6x	PBD-40
+6x	PBD-20
+1x	USB socket (type B)
+1x	SMTS-102-2C3 (spdt switch)
+1x	tactile button corner
+1x	LED corner red
+1x	LED corner green
+1x	dil14 narrow socket
+1x	electrolytic capacitor 10uF
+1x	SMD capacitor 1uF(1206)
+1x	SMD resistor 10k(0805)
+2x	SMD resistor 1k(0805)
+6x	rubber foot
+
+1x	MCP2221A (USB-UART bridge)
+
+----------------------------------ZEUS CPU (module)
+1x	PLD-40R
+1x	PLD-20R
+1x	dil40 wide socket
+1x	dil20 narrow socket
+2x	dil14 narrow socket
+1x	dil8 narrow socket (cylindrical)
+1x	PLS-2 (jumper)
+3x	SMD capacitor 1uF(1206)
+6x	SMD resistor 10k(0805)
+1x	SMD shottky diod
+
+1x	Z84C0010PEG (CPU) dip40
+1x	DM74LS374N (trigger) dip20
+1x	SN74HC32N (OR gate) dip14
+1x	SN74HC00N (NAND gate) dip14
+1x	10MHz (clock generator) dil8
+
+----------------------------------ZEUS MEM128k (module)
+1x	PLD-40R
+1x	PLD-20R
+1x	ZIF28 wide socket
+1x	dil32 wide socket
+3x	dil14 narrow socket
+1x	PLS-2 (jumper)
+1x	PLD-8 (jumper header)
+2x	SMD capacitor 1uF(1206)
+6x	SMD resistor 10k(0805)
+
+1x	AT28C256-15PU (EEPROM 32kB) dip28
+1x	AS6C1008 (SRAM 128k) dip32
+2x	SN74HC32N (OR gate) dip14
+1x	SN74HC00N (NAND gate) dip14
+
+----------------------------------ZEUS SIO (module)
+1x	PLD-40R
+1x	PLD-20R
+1x	dil40 wide socket
+1x	dil14 narrow socket
+1x	dil8 narrow socket (cylindrical)
+2x	PLS-2 (jumper)
+1x	PLD-8 (jumper header)
+1x	PLD-16 (jumper header)
+1x	PLS-8 (jumper header)
+1x	PLS-6R(FTDI header)
+2x	SMD capacitor 1uF(1206)
+3x	SMD resistor 10k(0805)
+1x	PS/2 socket
+
+1x	Z84C4006PEC (SIO) dip40
+1x	SN74HC32N (OR gate) dip14
+1x	7.3728MHz (clock generator) dil8
+
+----------------------------------ZEUS TFT2.8 (module)
+1x	PLD-40R
+1x	PLD-20R
+1x	dil40 wide socket
+2x	dil14 narrow socket
+1x	PLD-16 (jumper header)
+1x	PLS-8 (jumper header)
+1x	PLS-3 (jumper header)
+2x	PBS-8 (TFT shield header)
+2x	PBS-6 (TFT shield header)
+1x	LED orange
+2x	SMD capacitor 1uF(1206)
+1x	SMD resistor 10k(0805)
+1x	SMD resistor 1k(0805)
+
+1x	Z0842006PSC (PIO)
+1x	SN74HC32N (OR gate) dip14
+1x	SN74HC00N (NAND gate) dip14
+1x	ARDUINO UNO SHIELD TFT2.8" 320x240 (itead9341)
+
+----------------------------------MISC
+10x	jumper 6mm
+1x	jumper 13.7mm blue
+1x	jumper 13.7mm red
+
+4x	spacer M-F 15mm
+2x	spacer M-M 20mm
+4x	spacer M-F 6mm
+4x	spacer M-M 6mm
