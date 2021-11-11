@@ -13,7 +13,7 @@
 2x	SMD resistor 1k(0805)
 6x	rubber foot
 
-1x	MCP2221A (USB-UART bridge)
+1x	MCP2221A (USB-UART bridge) dip-14
 
 ----------------------------------ZEUS CPU (module)
 1x	PLD-40R
@@ -27,11 +27,11 @@
 6x	SMD resistor 10k(0805)
 1x	SMD shottky diod
 
-1x	Z84C0010PEG (CPU) dip40
-1x	DM74LS374N (trigger) dip20
-1x	SN74HC32N (OR gate) dip14
-1x	SN74HC00N (NAND gate) dip14
-1x	10MHz (clock generator) dil8
+1x	Z84C0010PEG (CPU) dip-40
+1x	DM74LS374N (trigger) dip-20
+1x	SN74HC32N (OR gate) dip-14
+1x	SN74HC00N (NAND gate) dip-14
+1x	10MHz (clock generator) dil-8
 
 ----------------------------------ZEUS MEM128k (module)
 1x	PLD-40R
@@ -44,10 +44,10 @@
 2x	SMD capacitor 1uF(1206)
 6x	SMD resistor 10k(0805)
 
-1x	AT28C256-15PU (EEPROM 32kB) dip28
-1x	AS6C1008 (SRAM 128k) dip32
-2x	SN74HC32N (OR gate) dip14
-1x	SN74HC00N (NAND gate) dip14
+1x	AT28C256-15PU (EEPROM 32kB) dip-28
+1x	AS6C1008 (SRAM 128k) dip-32
+2x	SN74HC32N (OR gate) dip-14
+1x	SN74HC00N (NAND gate) dip-14
 
 ----------------------------------ZEUS SIO (module)
 1x	PLD-40R
@@ -64,9 +64,9 @@
 3x	SMD resistor 10k(0805)
 1x	PS/2 socket
 
-1x	Z84C4006PEC (SIO) dip40
-1x	SN74HC32N (OR gate) dip14
-1x	7.3728MHz (clock generator) dil8
+1x	Z84C4006PEC (SIO) dip-40
+1x	SN74HC32N (OR gate) dip-14
+1x	7.3728MHz (clock generator) dil-8
 
 ----------------------------------ZEUS TFT2.8 (module)
 1x	PLD-40R
@@ -83,9 +83,9 @@
 1x	SMD resistor 10k(0805)
 1x	SMD resistor 1k(0805)
 
-1x	Z0842006PSC (PIO)
-1x	SN74HC32N (OR gate) dip14
-1x	SN74HC00N (NAND gate) dip14
+1x	Z0842006PSC (PIO) dip-40
+1x	SN74HC32N (OR gate) dip-14
+1x	SN74HC00N (NAND gate) dip-14
 1x	ARDUINO UNO SHIELD TFT2.8" 320x240 (itead9341)
 
 ----------------------------------MISC
