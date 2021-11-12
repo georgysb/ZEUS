@@ -690,7 +690,7 @@ LD H, A		1	0x67,
 LD L, $0x04	2	0x2E, 0x04, 		// keyb buff pointer LSB set
 LD BC, $0100	3	0x01, 0x00, 0x01, 		// message pointer
 
-LD IX, $FE10	4	0xDD, 0x21, 0x10, 0xFE, 	//temp variable(7)
+LD IX, $FEFE	4	0xDD, 0x21, 0xFE, 0xFE, 	//temp variable(7)
 LD (IX+d), L	3	0xDD, 0x75, 0x00, 
 
 :next_byte
@@ -717,7 +717,7 @@ CALL crc7_add	3	0xCD, 0x00, 0x99,
 
 RET		1	0xC9, 
 
---------------------------------------------------------------------------------//>"sdi " command [L bytes at $8000] (+0x0039)
+--------------------------------------------------------------------------------//>"sdi " command [L bytes at $0100] (+0x0039)
 LD IX, $FEFE	4	0xDD, 0x21, 0xFE, 0xFE, 	//temp variable(13)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 		// keyb buff pointer MSB
 LD H, A		1	0x67, 
@@ -753,9 +753,9 @@ JR NZ, -7		2	0x20, 0xF9,
 LD A, 01h		2	0x3E, 0x01, 	//SCK# DI# SS(5)
 OUT (00h), A	2	0xD3, 0x00, 	//dataA <-- A
 RET		1	0xC9, 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//SD
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//SD routines
 -------------------------------------------------------------------------------//crc7_add (input BC last byte pointer)(+0x003D)
-PUSH BC		1	0xC5, 	//CRC7 block load &9000(14)
+PUSH BC		1	0xC5, 	//CRC7 block load $FC00(14)
 POP HL		1	0xE1, 
 repeat:
 LD A, (HL)		1	0x7E, 
