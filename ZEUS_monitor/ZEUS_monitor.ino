@@ -345,7 +345,7 @@ const byte BLOCK_CMDS[] = {
 0xD3, 0xF0,       //write A to sys reg
 0x21, 0x00, 0xC3, //LD HL with new jump address
 0x22, 0x00, 0x00, // write HL to $0000
-0x21, 0x00, 0xA0, //LD HL with new jump address
+0x2A, 0x02, 0x80, //LD HL with setup address
 0x22, 0x02, 0x00, // write HL to $0002
 0xC9, 
 //---------------
@@ -432,9 +432,9 @@ const byte BLOCK_SETUP[] = {
 0x22, 0x04, 0xFE, //$FE04
 0x21, 0x00, 0x01, //UART buff pointer
 0x22, 0x06, 0xFE, //$FE06
-0x21, 0x80, 0x00, //color1 (R=8000, Y=8400, W=8410)
+0x21, 0x80, 0x00, //font color (R=8000, Y=8400, W=8410)
 0x22, 0x08, 0xFE, //$FE08
-0x21, 0x00, 0x00, //color2
+0x21, 0x00, 0x00, //background color
 0x22, 0x0A, 0xFE, //$FE0A
 0x21, 0x00, 0x00, //TFT char position row/col
 0x22, 0x0C, 0xFE, //$FE0C
@@ -526,7 +526,7 @@ const byte BLOCK_SETUP[] = {
 0x3E, 0xFE, 0xD3, 0xF0, //sys reg <- 0xFE (switch to bank E)
 0x21, 0x00, 0xC3, //HL <- 0x00, 0xC3,
 0x22, 0x00, 0x00, //($0000)  <-  HL
-0x21, 0x00, 0xA0, //HL <-  new setup address
+0x2A, 0x02, 0x80, //HL <- setup address
 0x22, 0x02, 0x00, //($0002)  <-  HL
 //----------------------------------------------------------------------- UART ready
 0xED, 0x5E, 0xFB, //int mode 2 EI
@@ -599,19 +599,19 @@ void loop() {
   if(!ButtonState){    
     int byteswrit = 0;
 //    Serial.println("writing..");  
-//    for(int j=0; j<0x0100; j++){writeEEPROM(0x0000 + j, 0xFF); byteswrit++;}
+//    for(int j=0; j<0x0100; j++){writeEEPROM(0x7000 + j, 0xFF); byteswrit++;}
 
 //    for(int j=0; j<blocksize_font; j++){writeEEPROM(offset_font + j, FONT_TABLE[j]); byteswrit++;}
 //    for(int j=0; j<blocksize_scan; j++){writeEEPROM(offset_scan + j, SCAN_TABLE[j]); byteswrit++;}
 
-    for(int j=0; j<blocksize_0; j++){writeEEPROM(offset_0 + j, BLOCK_0[j]); byteswrit++;}
+//    for(int j=0; j<blocksize_0; j++){writeEEPROM(offset_0 + j, BLOCK_0[j]); byteswrit++;}
 //    for(int j=0; j<blocksize_intvec; j++){writeEEPROM(offset_intvec + j, INTVEC_TABLE[j]); byteswrit++;}
 //    for(int j=0; j<blocksize_bios; j++){writeEEPROM(offset_bios + j, BLOCK_BIOS[j]); byteswrit++;}
     
 //    for(int j=0; j<blocksize_parser; j++){writeEEPROM(offset_parser + j, BLOCK_PARSER[j]); byteswrit++;}
-//    for(int j=0; j<blocksize_cmds; j++){writeEEPROM(offset_cmds + j, BLOCK_CMDS[j]); byteswrit++;}
+    for(int j=0; j<blocksize_cmds; j++){writeEEPROM(offset_cmds + j, BLOCK_CMDS[j]); byteswrit++;}
 //    for(int j=0; j<blocksize_sd; j++){writeEEPROM(offset_sd + j, BLOCK_SD[j]); byteswrit++;}
-//    for(int j=0; j<blocksize_setup; j++){writeEEPROM(offset_setup + j, BLOCK_SETUP[j]); byteswrit++;}
+    for(int j=0; j<blocksize_setup; j++){writeEEPROM(offset_setup + j, BLOCK_SETUP[j]); byteswrit++;}
 //    for(int j=0; j<blocksize_primer; j++){writeEEPROM(offset_primer + j, BLOCK_PRIMER[j]); byteswrit++;}
 
     digitalWrite(ADDR[15], 1);  //CE# off
