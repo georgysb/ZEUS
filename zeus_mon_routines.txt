@@ -578,9 +578,9 @@ LD E, (HL)		1	0x5E,
 CALL hex_parse	3	0xCD, 0xff, 0xff, 
 
 OUT (F0h), A	2	0xD3, 0xF0, //output A to sys reg(15)
-LD HL, 0x00, 0xC3	3	0x21, 0x00, 0xC3, 	//LD HL with new jump address
+LD HL, 0xC300	3	0x21, 0x00, 0xC3, 	//LD HL with new jump address
 LD ($0000), HL	3	0x22, 0x00, 0x00, 	//write HL to $0000
-LD HL, $8002	3	0x2A, 0x02, 0x80, 	//HL <-  setup address
+LD HL, ($8002)	3	0x2A, 0x02, 0x80, 	//HL <-  setup address
 LD ($0002), HL	3	0x22, 0x02, 0x00, 	//write HL to $0002
 RET		1	0xC9, 
 -------------------------------------------------------------------------------------------------// >"load " command(+0x003B)
@@ -949,7 +949,7 @@ OUT (F0h), A	2	0xD3, 0xF0, 	//sys reg <- 0xFE (switch to bank E)
 LD HL, 0xC300	3	0x21, 0x00, 0xC3, 	//HL <- 0x00, 0xC3,
 LD ($0000), HL	3	0x22, 0x00, 0x00, 	//$0000 <- HL
 LD HL, $8002	3	0x2A, 0x02, 0x80, 	//HL <-  ($8002)
-LD $0002, HL	3	0x22, 0x02, 0x00, 	//$0002 <- HL
+LD ($0002), HL	3	0x22, 0x02, 0x00, 	//$0002 <- HL
 -------------------------------------------------------------------------------------------------// interrupt setup
 INT 2		2	0xED, 0x5E, 	//int mode 2 
 EI		1	0xFB, 		//EI
