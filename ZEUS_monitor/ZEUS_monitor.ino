@@ -523,8 +523,8 @@ const byte BLOCK_SETUP[] = {
 0x14, //INC D
 0xED, 0x53, 0x0C, 0xFE, //LD ($FE0C), DE
 //----------------------------------------------------------------------- Bank E init
-//0x3E, 0xFF, 0x06, 0xF0, 
-//0x3D, 0xD3, 0xF0, 0x32, 0x04, 0x00, 0xB8, 0X20, 0xF7, 
+0x3E, 0xF0, 0x06, 0xFF, 
+0xD3, 0xF0, 0x32, 0x04, 0x00, 0x3C, 0xB8, 0X20, 0xF7, 
 
 0x3E, 0xFE, 0xD3, 0xF0, //sys reg <- 0xFE (switch to bank E)
 0x21, 0x00, 0xC3, //HL <- 0x00, 0xC3,
@@ -614,6 +614,7 @@ void loop() {
     for(int j=0; j<blocksize_parser; j++){writeEEPROM(offset_parser + j, BLOCK_PARSER[j]); byteswrit++;}
     for(int j=0; j<blocksize_cmds; j++){writeEEPROM(offset_cmds + j, BLOCK_CMDS[j]); byteswrit++;}
     for(int j=0; j<blocksize_sd; j++){writeEEPROM(offset_sd + j, BLOCK_SD[j]); byteswrit++;}
+    
     for(int j=0; j<blocksize_setup; j++){writeEEPROM(offset_setup + j, BLOCK_SETUP[j]); byteswrit++;}
     for(int j=0; j<blocksize_primer; j++){writeEEPROM(offset_primer + j, BLOCK_PRIMER[j]); byteswrit++;}
 
