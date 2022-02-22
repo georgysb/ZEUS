@@ -443,14 +443,14 @@ LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
 LD H, A		1	0x67, 
 LD L, $0x05	2	0x2E, 0x05, 	// keyb buff pointer LSB set
 
-INC L		1	0x2C, 		// high address parse(8)
+INC L		1	0x2C, 		// high byte parse(8) *(BC <-- source address)
 LD D, (HL)		1	0x56, 
 INC L		1	0x2C, 
 LD E, (HL)		1	0x5E, 
 CALL hex_parse	3	0xCD, 0xff, 0xff, 
 LD B, A		1	0x47, 
 
-INC L		1	0x2C, 		// low address parse(8)
+INC L		1	0x2C, 		// low byte parse(8)
 LD D, (HL)		1	0x56, 
 INC L		1	0x2C, 
 LD E, (HL)		1	0x5E, 
@@ -572,7 +572,7 @@ LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
 LD H, A		1	0x67, 
 LD L, $0x05	2	0x2E, 0x05, 	// keyb buff pointer LSB set
 
-INC L		1	0x2C, 		// low address parse(7)
+INC L		1	0x2C, 		// byte parse(7) *(Sys Reg value)
 LD D, (HL)		1	0x56, 
 INC L		1	0x2C, 
 LD E, (HL)		1	0x5E, 
@@ -589,14 +589,13 @@ LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
 LD H, A		1	0x67, 
 LD L, $0x05	2	0x2E, 0x05, 	// keyb buff pointer LSB set
 
-INC L		1	0x2C, 		// high address parse(8)
+INC L		1	0x2C, 		// high byte parse(16) *(BC <-- destination address)
 LD D, (HL)		1	0x56, 
 INC L		1	0x2C, 
 LD E, (HL)		1	0x5E, 
 CALL hex_parse	3	0xCD, 0xff, 0xff, 
 LD B, A		1	0x47, 
-
-INC L		1	0x2C, 		// low address parse(8)
+INC L		1	0x2C, 		// low byte parse
 LD D, (HL)		1	0x56, 
 INC L		1	0x2C, 
 LD E, (HL)		1	0x5E, 
