@@ -633,9 +633,11 @@ void setup() {
   pinMode(READ, OUTPUT);
   pinMode(WRITE, OUTPUT);
   pinMode(BUTTON, INPUT);
-  digitalWrite(WRITE, 1);
+  digitalWrite(WRITE, 0);
   digitalWrite(READ, 1);
   Serial.begin(115200);
+  delay(100);
+  digitalWrite(WRITE, 1);
 }
 
 void loop() {
@@ -645,7 +647,7 @@ void loop() {
     int byteswrit = 0;
 //    Serial.println("writing..");  
 //    for(int j=0; j<0x0100; j++){writeEEPROM(0x1600 + j, 0xFF); byteswrit++;}
-
+    
     for(int j=0; j<blocksize_font; j++){writeEEPROM(offset_font + j, FONT_TABLE[j]); byteswrit++;}
     for(int j=0; j<blocksize_scan; j++){writeEEPROM(offset_scan + j, SCAN_TABLE[j]); byteswrit++;}
 
