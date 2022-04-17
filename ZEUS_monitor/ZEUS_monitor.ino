@@ -474,12 +474,19 @@ const byte BLOCK_SETUP[] = {
 0x36, 0xFF, 
 //---------------------------------------------------- 
 //---------------------------------------------------- IO CONFIG
-0x3E, 0x03, 0xD3, 0x12, //PIO ports config
+0x3E, 0x03, 0xD3, 0x12, //PIO ports config (TFT+SD)
 0x3E, 0xCF, 0xD3, 0x12, 
 0x3E, 0x04, 0xD3, 0x12, 
 0x3E, 0x03, 0xD3, 0x13, 
 0x3E, 0xCF, 0xD3, 0x13, 
 0x3E, 0x00, 0xD3, 0x13, 
+
+0x3E, 0x03, 0xD3, 0x22, //PIO ports config (GPIO)
+0x3E, 0xCF, 0xD3, 0x22, 
+0x3E, 0x00, 0xD3, 0x22, 
+0x3E, 0x03, 0xD3, 0x23, 
+0x3E, 0xCF, 0xD3, 0x23, 
+0x3E, 0x00, 0xD3, 0x23, 
 
 0x3E, 0x18, 0xD3, 0x02, //SIO portA config
 0x3E, 0x14, 0xD3, 0x02, 
@@ -645,19 +652,19 @@ void loop() {
 //    Serial.println("writing..");  
 //    for(int j=0; j<0x0100; j++){writeEEPROM(0x1A00 + j, 0xFF); byteswrit++;}
     
-    for(int j=0; j<blocksize_font; j++){writeEEPROM(offset_font + j, FONT_TABLE[j]); byteswrit++;}
-    for(int j=0; j<blocksize_scan; j++){writeEEPROM(offset_scan + j, SCAN_TABLE[j]); byteswrit++;}
+//    for(int j=0; j<blocksize_font; j++){writeEEPROM(offset_font + j, FONT_TABLE[j]); byteswrit++;}
+//    for(int j=0; j<blocksize_scan; j++){writeEEPROM(offset_scan + j, SCAN_TABLE[j]); byteswrit++;}
 
-    for(int j=0; j<blocksize_0; j++){writeEEPROM(offset_0 + j, BLOCK_0[j]); byteswrit++;}
-    for(int j=0; j<blocksize_intvec; j++){writeEEPROM(offset_intvec + j, INTVEC_TABLE[j]); byteswrit++;}
-    for(int j=0; j<blocksize_bios; j++){writeEEPROM(offset_bios + j, BLOCK_BIOS[j]); byteswrit++;}
+//    for(int j=0; j<blocksize_0; j++){writeEEPROM(offset_0 + j, BLOCK_0[j]); byteswrit++;}
+//    for(int j=0; j<blocksize_intvec; j++){writeEEPROM(offset_intvec + j, INTVEC_TABLE[j]); byteswrit++;}
+//    for(int j=0; j<blocksize_bios; j++){writeEEPROM(offset_bios + j, BLOCK_BIOS[j]); byteswrit++;}
     
-    for(int j=0; j<blocksize_parser; j++){writeEEPROM(offset_parser + j, BLOCK_PARSER[j]); byteswrit++;}
-    for(int j=0; j<blocksize_cmds; j++){writeEEPROM(offset_cmds + j, BLOCK_CMDS[j]); byteswrit++;}
-    for(int j=0; j<blocksize_sd; j++){writeEEPROM(offset_sd + j, BLOCK_SD[j]); byteswrit++;}
+//    for(int j=0; j<blocksize_parser; j++){writeEEPROM(offset_parser + j, BLOCK_PARSER[j]); byteswrit++;}
+//    for(int j=0; j<blocksize_cmds; j++){writeEEPROM(offset_cmds + j, BLOCK_CMDS[j]); byteswrit++;}
+//    for(int j=0; j<blocksize_sd; j++){writeEEPROM(offset_sd + j, BLOCK_SD[j]); byteswrit++;}
     
     for(int j=0; j<blocksize_setup; j++){writeEEPROM(offset_setup + j, BLOCK_SETUP[j]); byteswrit++;}
-    for(int j=0; j<blocksize_primer; j++){writeEEPROM(offset_primer + j, BLOCK_PRIMER[j]); byteswrit++;}
+//    for(int j=0; j<blocksize_primer; j++){writeEEPROM(offset_primer + j, BLOCK_PRIMER[j]); byteswrit++;}
 
     digitalWrite(ADDR[15], 1);  //CE# off
     sprintf(report, "0x%04x bytes written", byteswrit);
