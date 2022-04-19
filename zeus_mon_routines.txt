@@ -978,7 +978,7 @@ LD I, A		2	0xED, 0x47,
 0x21, 0x81, 0xFE, //$FE81 <- 0xFF :SYSR state
 0x36, 0xFF, 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ IO CONFIG
--------------------------------------------------------------------------------------------------// PIO ports config(TFT+SD)
+-------------------------------------------------------------------------------------------------// PIO ports config (TFT+SD)
 LD A, 03h			0x3E, 0x03, //portA Interrupt Disable Word (disabled)
 OUT (12h), A		0xD3, 0x12, 
 LD A, CFh			0x3E, 0xCF, //portA Mode Control Word (Mode 3)
@@ -991,7 +991,7 @@ LD A, CFh			0x3E, 0xCF, //portB Mode Control Word (Mode 3)
 OUT (13h), A		0xD3, 0x13, 
 LD A, 04h			0x3E, 0x04, //portB IO Register Control Word (B2 input)
 OUT (13h), A		0xD3, 0x13, 
--------------------------------------------------------------------------------------------------// PIO ports config(GPIO A2A3=00)
+-------------------------------------------------------------------------------------------------// PIO ports config (GPIO A3A2 = 00)
 LD A, 03h			0x3E, 0x03, //portA Interrupt Disable Word (disabled)
 OUT (22h), A		0xD3, 0x22, 
 LD A, CFh			0x3E, 0xCF, //portA Mode Control Word (Mode 3)
