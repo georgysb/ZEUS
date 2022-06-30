@@ -136,7 +136,7 @@ const byte FONT_TABLE[] = {
  0x00,0x00,0x00,0x00,0x00,0x00,0x61,0x99,0x86,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
  0x00,0x00,0x00,0x00,0x10,0x38,0x44,0x82,0x82,0x82,0x82,0xFE,0x00,0x00,0x00,0x00}; //FONT table
 int blocksize_font = sizeof(FONT_TABLE);
-//-------------------------------------------------------------------------------- Keyboard scan codes table
+//================================================================================ Keyboard scan codes table
 int offset_scan = 0x1200;
 const byte SCAN_TABLE[] = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0x60, 0x00,
@@ -158,7 +158,7 @@ const byte SCAN_TABLE[] = {
 0x30, 0x2e, 0x32, 0x35, 0x36, 0x38, 0x00, 0x00, 0x00, 0x2b, 0x33, 0x2d, 0x2a, 0x39, 0x00, 0x00};
 int blocksize_scan = sizeof(SCAN_TABLE);
 
-//-------------------------------------------------------------------------------- Page 0x00
+//================================================================================ Page 0x00
 int offset_0 = 0x0000;
 const byte BLOCK_0[] = {
 0x00, 0xC3, 0x00, 0x7F, //jump PRIMER
@@ -179,7 +179,7 @@ const byte BLOCK_0[] = {
 0x73, 0x64, 0x69, 0x20,       // 0x805E "sdi "
 0xFF};
 int blocksize_0 = sizeof(BLOCK_0);
-//-------------------------------------------------------------------------------- INTVEC table
+//================================================================================ INTVEC table
 int offset_intvec = 0x0100;
 const byte INTVEC_TABLE[] = {
 0x00, 0x93, 
@@ -192,7 +192,7 @@ const byte INTVEC_TABLE[] = {
 0x00, 0x93,
 0xFF}; //SIO interrupt table
 int blocksize_intvec = sizeof(INTVEC_TABLE);
-//-------------------------------------------------------------------------------- BIOS routines
+//================================================================================ BIOS routines
 int offset_bios = 0x1300;
 const byte BLOCK_BIOS[] = {
 0xFB, 0xED, 0x4D, //>SIO void handler $9300(+0x0003)
@@ -251,7 +251,7 @@ const byte BLOCK_BIOS[] = {
 0x21, 0x80, 0xFE, 0x71, 0xC1, 0xFB, 0xED, 0x4D, //jp4: not good for print
 0xFF};
 int blocksize_bios = sizeof(BLOCK_BIOS);
-//-------------------------------------------------------------------------------- CMD PARSER
+//================================================================================ CMD PARSER
 int offset_parser = 0x1500;
 const byte BLOCK_PARSER[] = {
 0xC5, 0xE5, //>Hex parse (input DE output A) $9500(+0x003C)
@@ -288,7 +288,7 @@ const byte BLOCK_PARSER[] = {
 0xE1, 0xC1, 0xC9, 
 0xFF};
 int blocksize_parser = sizeof(BLOCK_PARSER);
-//-------------------------------------------------------------------------------- CMDS
+//================================================================================ CMDS
 int offset_cmds = 0x1700;
 const byte BLOCK_CMDS[] = {
 0x16, 0x36, 0xCD, 0x0C, 0x93, 	//>"clr" command $9700(+0x007E)
@@ -418,7 +418,7 @@ const byte BLOCK_CMDS[] = {
 0xC9, 
 0xFF};
 int blocksize_cmds = sizeof(BLOCK_CMDS);
-//-------------------------------------------------------------------------------- SD routines
+//================================================================================ SD routines
 int offset_sd = 0x1B00;
 const byte BLOCK_SD[] = {
 0xC5, 0xE1, 0x7E, 0x26, 0xFC, 0x77, 0xAF, 0xBD, 0x28, 0x04, 0x2D, 0x60, 0x18, 0xF4, //crc7_add [input BC last byte pointer] $9B00(+0x003D)
@@ -446,7 +446,7 @@ const byte BLOCK_SD[] = {
 
 0xFF};
 int blocksize_sd = sizeof(BLOCK_SD);
-//-------------------------------------------------------------------------------- SETUP
+//================================================================================ SETUP
 int offset_setup = 0x2000;
 const byte BLOCK_SETUP[] = {
 0x31, 0xFF, 0xFF, //set SP to 0xFFFF
@@ -586,8 +586,7 @@ const byte BLOCK_SETUP[] = {
 0x76, 0x18, 0xFD, //Halt, JR -3
 0xFF}; 
 int blocksize_setup = sizeof(BLOCK_SETUP);
-//------------------------------------------------------------------- 
-//------------------------------------------------------------------- PRIMER
+//================================================================================ PRIMER
 int offset_primer = 0x7F00;
 const byte BLOCK_PRIMER[] = {
 0x21, 0x00, 0x00, 0x11, 0x00, 0x80, 0x01, 0x00, 0x30, 0xED, 0xB0, //copy 0x3000 bytes block $0000 -> $8000
@@ -596,9 +595,10 @@ const byte BLOCK_PRIMER[] = {
 0xC3, 0x00, 0x80, //jump $8000
 0xFF};
 int blocksize_primer = sizeof(BLOCK_PRIMER);
-//--------------------------------------------------------------------------------
-//                                                                   ARDUINO MEGA
-//--------------------------------------------------------------------------------
+
+////================================================================================
+//                                                                      ARDUINO MEGA code
+////================================================================================
 #define READ 39
 #define WRITE 29  //LED
 #define BUTTON 26
