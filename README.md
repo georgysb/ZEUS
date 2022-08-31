@@ -5,13 +5,13 @@ ZEUS is a custom modular standalone 8-bit computer kit for boys 40+ and computer
 
 **ZEUS specs:**
 
-Z80 CPU 10 MH
+Z80 CPU 10 MHz
  
 EEPROM 32 kB
 
-SRAM 128 kB (supports up to 512kB)
+SRAM 128 kB (supports up to 512 kB)
 
-TFT2.8" 320x240
+TFT2.8" 320x240 (itead9341)
 
 UART-USB 115200 baud
 
@@ -33,10 +33,10 @@ ZEUS6 backboard
 
 ZEUS CPU module
 
-ZEUS MEM128k module
+ZEUS MEM128k (MEM512k) module
 
 ZEUS SIO module
 
 ZEUS TFT2.8 module
 
-Apart from 40-wire Z80 CPU bus ZEUS has auxiliary bus for System Register Q0-Q7 (partially used for memory bank switching), interrupt daisy-chaining (see Z80 manual) AX0-AX7 and UART signals Rx/Tx. ZEUS is powered through USB-B port which also used for communication with PC in case USB-UART bridge chip is installed in backboard. In another case one can use FTDI header on ZEUS SIO module for communication with external world. ZEUS TFT module has GPO line "LED" which drives orange LED and also can be used as CS for TFT driver chip (itead9341). TFT Arduino shield is also equipped with microSD card slot which can be used for data storage. It's better to use microSD card up to 2GB as such cards can process smaller chunks of data at a time. MicroSD card is not included in the kit. ZEUS SIO module is compatible with any Z80 family SIO (0,1 or 2). ZEUS MEM128k module has WR-WRE jumper which provides (if shorted) opportunity to write data to EEPROM right in the module. But AT28C256-15PU is too slow for 10MHz system clock, so if you don't want to corrupt EEPROM data you should switch system clock to 7.3728MHz (by removing 10MHz generator from ZEUS CPU module and shorting CLK-UCLK jumper on ZEUS SIO module) before writing data to EEPROM.
+Apart from 40-wire Z80 CPU bus ZEUS has auxiliary bus for System Register Q0-Q7 (partially used for memory bank switching), interrupt daisy-chaining (see Z80 manual) AX0-AX7 and UART signals Rx/Tx. ZEUS is powered through USB-B port which also used for communication with PC in case UART-USB bridge IC (MCP2221A) is installed in backboard. In another case one can use FTDI header on ZEUS SIO module for communication with external world. ZEUS TFT module has GPO line "LED" which drives orange LED and also can be used as CS for TFT driver IC (itead9341). TFT Arduino shield is also equipped with microSD card slot which can be used for data storage. It's better to use microSD card up to 2GB as such cards can process smaller chunks of data at a time. MicroSD card is not included in the kit. ZEUS SIO module is compatible with any Z80 family SIO (0,1 or 2). ZEUS MEM128k module has WR-WRE jumper which provides (if shorted) opportunity to write data to EEPROM right in the module. But AT28C256-15PU is too slow for 10MHz system clock, so if you don't want to corrupt EEPROM data you should switch system clock to 7.3728MHz (by removing 10MHz generator from ZEUS CPU module and shorting CLK-UCLK jumper on ZEUS SIO module) before writing data to EEPROM.
