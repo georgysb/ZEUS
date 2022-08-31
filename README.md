@@ -4,7 +4,8 @@ https://www.tindie.com/products/georgysb/zeus-8-bit-hobby-computer-kit/
 ZEUS is a custom modular standalone 8-bit computer kit for boys 40+ and computer science students. It was designed to be robust and handy for Z80 assembly language learning and code developing in a bootstrapping way. I always wanted to have a computer good for lowest possible level of programming (machine code/assembly). My wish was to enjoy the magic of gradual bringing to life a piece of a hardware, where I can control everything with use of simple yet effective machine language subroutines, reinventing my own ways towards building operating system, assembler/disassembler and maybe even some homebrew high level language. And this small machine had to have an ability to exchange data with a modern PC, but also be completely autonomous from it. My first 8-bit design was based on 3 solderless breadboards. And the experience of hand wiring hundreds of connections made me dream of a common bus modular PCB design. And this kit is the final result of that effort and it can be further expanded with some additional modules, that now are easy to develop and test with this kit.
 
 **ZEUS specs:** 
-Z80 CPU 10 MHz; 
+Z80 CPU 10 MHz;
+ 
 EEPROM 32 kB; 
 SRAM 128 kB (supports up to 512kB); 
 TFT2.8" 320x240; 
