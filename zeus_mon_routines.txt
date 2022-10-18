@@ -734,7 +734,7 @@ INC C		1	0x0C,
 LD (BC), A		1	0x02, 
 CALL $0100	3	0xCD, 0x00, 0x01, 
 RET		1	0xC9, 
--------------------------------------------------------------------------------------------------// >"sysl " command(+0x0047)
+-------------------------------------------------------------------------------------------------// >"sysl " command(+0x003B)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
 LD H, A		1	0x67, 
 LD L, $0x05	2	0x2E, 0x05, 	// keyb buff pointer LSB set
@@ -759,6 +759,7 @@ LD HL, $804F	3	0x21, 0x4F, 0x80, 	// end of upper hex table
 LD A, D		1	0x7A, 
 CPDR		2	0xED, 0xB9, 
 LD A, C		1	0x79, 
+
 LD HL, $FEFF	3	0x21, 0xFF, 0xFE, 
 RRD		2	0xED, 0x67, 
 LD A, (HL)		1	0x7E, 
@@ -770,10 +771,6 @@ POP BC		1	0xC1,
 
 LD A, ($FE81)	3	0x3A, 0x81, 0xFE, 	//output A to sys reg(18)
 OUT (F0h), A	2	0xD3, 0xF0, 
-LD HL, 0xC300	3	0x21, 0x00, 0xC3, 	//LD HL with new jump address
-LD ($0000), HL	3	0x22, 0x00, 0x00, 	//write HL to $0000
-LD HL, ($8002)	3	0x2A, 0x02, 0x80, 	//HL <-  setup address
-LD ($0002), HL	3	0x22, 0x02, 0x00, 	//write HL to $0002
 RET		1	0xC9, 
 -------------------------------------------------------------------------------------------------// >"sysh " command(+0x003D)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
@@ -800,6 +797,7 @@ LD HL, $804F	3	0x21, 0x4F, 0x80, 	// end of upper hex table
 LD A, D		1	0x7A, 
 CPDR		2	0xED, 0xB9, 
 LD A, C		1	0x79, 
+
 LD HL, $FEFF	3	0x21, 0xFF, 0xFE, 
 RLD		2	0xED, 0x6F, 
 LD A, ($FE81)	1	0x3A, 0x81, 0xFE, 
@@ -1108,14 +1106,20 @@ OUT (03h), A		0xD3, 0x03,
 0x14, 				//INC D
 0xED, 0x53, 0x0C, 0xFE, 		//LD ($FE0C), DE
 -------------------------------------------------------------------------------------------------// banks ID
-LD A, 0x00	2	0x3E, 0xF0, 
-LD B, 0x0F	2	0x06, 0xFF, 
+LD A, 0xF0	2	0x3E, 0xF0, 
+LD B, 0xFF	2	0x06, 0xFF, 
 :next bank
 OUT (F0h), A	2	0xD3, 0xF0, 	//sys reg <- A
+PUSH BC		1	0xC5, 
+LD HL, 0x00, 0x80	3	0x21, 0x00, 0x80, 	//HL <-  0x0000
+LD DE, 0x00, 0x00	3	0x11, 0x00, 0x00, 	//DE  <-  0x8000
+LD BC, 0x70, 0x00	3	0x01, 0x70, 0x00, 	//BC  <-  0x0070
+LDIR		2	0xED, 0xB0, 	//copy 0x0070 bytes block 0x8000 -> 0x0000
+POP BC		1	0xC1, 
 LD ($0007), A	3	0x32, 0x07, 0x00, 
 INC A		1	0x3C, 
 CP B		1	0xB8, 
-JR NZ, -9		2	0X20, 0xF7, 
+JR NZ, -22		2	0X20, 0xEA, 	//jump next bank
 --------------------------------------------------------------------------// banks ID check
 LD C, 0xF0	2	0x0E, 0xF0, 
 LD B, 0xFE	2	0x06, 0xFE, 
@@ -1154,10 +1158,6 @@ RRD		2	0xED, 0x67,
 LD A, (HL)		1	0x7E, 
 LD ($FE81), A	3	0x32, 0x81, 0xFE, 	//SYSREG state low nibble write
 OUT (F0h), A	2	0xD3, 0xF0, 	//SYSREG <- state (switch to bank E)
-LD HL, 0xC300	3	0x21, 0x00, 0xC3, 	//HL <- 0xC300
-LD ($0000), HL	3	0x22, 0x00, 0x00, 	//$0000 <- HL
-LD HL, $8002	3	0x2A, 0x02, 0x80, 	//HL <-  ($8002)
-LD ($0002), HL	3	0x22, 0x02, 0x00, 	//$0002 <- HL
 -------------------------------------------------------------------------------------------------// interrupt setup
 INT 2		2	0xED, 0x5E, 	//int mode 2 
 EI		1	0xFB, 		//EI
