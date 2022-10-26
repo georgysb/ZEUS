@@ -282,7 +282,7 @@ POP BC		1	0xC1,
 EI		1	0xFB, 
 RETI		2	0xED, 0x4D, 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ CMD parser
--------------------------------------------------------------------------------------------------// hex_parse (input DE output A) (+0x0042)
+-------------------------------------------------------------------------------------------------// hex_parse (input DE output A) (+0x003C)
 PUSH BC		1	0xC5, 
 PUSH HL		1	0xE5, 
 
@@ -293,20 +293,20 @@ CPDR		2	0xED, 0xB9,
 LD A, C		1	0x79, 
 JR Z, 10		2	0x28, 0x0A, 
 
-LD BC, $0010	3	0x01, 0x10, 0x00, 	// parce high char(15)
+LD BC, $0010	3	0x01, 0x10, 0x00, 	// parce low char(15)
 LD HL, $804F	3	0x21, 0x4F, 0x80, 	// end of upper hex table
 LD A, D		1	0x7A, 
 CPDR		2	0xED, 0xB9, 
 LD A, C		1	0x79, 
+LD HL, $FEFF	3	0x21, 0xFF, 0xFE, 
 RLD		2	0xED, 0x6F, 
 
-LD BC, $0010	3	0x01, 0x10, 0x00, 	// parce low char(12)
+LD BC, $0010	3	0x01, 0x10, 0x00, 	// parce high char(12)
 LD HL, $805F	3	0x21, 0x5F, 0x80, 	// end of lower hex table
 LD A, E		1	0x7B, 
 CPDR		2	0xED, 0xB9, 
 LD A, C		1	0x79, 
-LD HL, $FEFF	3	0x21, 0xFF, 0xFE, 
-JR Z, 13		2	0x28, 0x0A, 
+JR Z, 10		2	0x28, 0x0A, 
 
 LD BC, $0010	3	0x01, 0x10, 0x00, 	// parce low char(15)
 LD HL, $804F	3	0x21, 0x4F, 0x80, 	// end of upper hex table
