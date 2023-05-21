@@ -1168,7 +1168,7 @@ CALL TFT_char_fill	3	0xCD, 0xXX, 0xXX, 	//print "S"
 LD A, 0x53		2	0x3E, 0x53, 		
 OUT (00h), A		2	0xD3, 0x00, 		//send "S"
 
-LD A, 0x0D		2	0x3E, 0x53, 
+LD A, 0x0D		2	0x3E, 0x0D, 
 OUT (00h), A		2	0xD3, 0x00, 		//send ret
 -------------------------------------------------------------------------------------------------// banks ID
 LD A, 0xF0	2	0x3E, 0xF0, 
