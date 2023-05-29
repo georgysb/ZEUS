@@ -1,9 +1,9 @@
 -------------------------------------- PIO <-> TFT
-RS(D/C#) 	<-- portA7	
-WR# 	<-- portA6
-RD# 	<-- portA5
-LED# 	<-- portA4
-D0-7 	<-> portB0-7
+RS(D/C#) 	<-- portA7
+WR# 		<-- portA6
+RD# 		<-- portA5
+LED# 		<-- portA4
+D0-7 		<-> portB0-7
 -------------------------------------- CPU <-> PIO
 B/A# - Addr0
 C/D# - Addr1
@@ -18,7 +18,8 @@ port 0x13 comB
 11111111	Input		(FFh)
 00000000	Output		(00h)
 -------------------------------------------------------- PIO ports config
-0x3E, 0x03, 0xD3, 0x12, 0x3E, 0xCF, 0xD3, 0x12, 0x3E, 0x04, 0xD3, 0x12, 	0x3E, 0x03, 0xD3, 0x13, 0x3E, 0xCF, 0xD3, 0x13, 0x3E, 0x00, 0xD3, 0x13, 	24bytes
+0x3E, 0x03, 0xD3, 0x12, 0x3E, 0xCF, 0xD3, 0x12, 0x3E, 0x04, 0xD3, 0x12, 
+0x3E, 0x03, 0xD3, 0x13, 0x3E, 0xCF, 0xD3, 0x13, 0x3E, 0x00, 0xD3, 0x13, 	24bytes
 LD A, 03h		0x3E, 0x03, 	//interrupt disable
 OUT (12h), A	0xD3, 0x12, 	//instA <-- 0x03
 LD A, CFh		0x3E, 0xCF, 	//mode 3
@@ -32,38 +33,38 @@ OUT (13h), A	0xD3, 0x13, 	//instB <-- 0xCF
 LD A, 00h		0x3E, 0x00, 	//IO register
 OUT (13h), A	0xD3, 0x13, 	//instB <-- 0x00
 -------------------------------------------------------- TFT subroutines
-TFT wr com: (input D) (+0x000C)
-LD A, D		1	0x7A, 
-OUT (11h), A	2	0xD3, 0x11, 	//dataB <-- D
-LD A, 31h		2	0x3E, 0x31, 	//(0011xxx1)
-OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- 0x31
-LD A, 61h		2	0x3E, 0x61, 	//(0110xxx1)
-OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- 0x61
-RET		1	0xC9, 
+TFT wr com: (input D) (+0x000C)T61
+LD A, D			1T4		0x7A, 
+OUT (11h), A	2T11	0xD3, 0x11, 	//dataB <-- D
+LD A, 31h		2T7		0x3E, 0x31, 	//(0011xxx1)
+OUT (10h), A	2T11	0xD3, 0x10, 	//dataA <-- 0x31
+LD A, 61h		2T7		0x3E, 0x61, 	//(0110xxx1)
+OUT (10h), A	2T11	0xD3, 0x10, 	//dataA <-- 0x61
+RET				1T10	0xC9, 
 
-TFT wr data: (input D) (+0x000C)
-LD A, D		1	0x7A, 
+TFT wr data: (input D) (+0x000C)T61
+LD A, D			1	0x7A, 
 OUT (11h), A	2	0xD3, 0x11, 	//dataB <-- D
 LD A, B1h		2	0x3E, 0xB1, 	//(1011xxx1)
 OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- 0xB1
 LD A, E1h		2	0x3E, 0xE1, 	//(1110xxx1)
 OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- 0xE1
-RET		1	0xC9, 
+RET				1	0xC9, 
 
-TFT rd data: (input D) (+0x000C)
-LD A, D		1	0x7A, 
+TFT rd data: (input D) (+0x000C)T61
+LD A, D			1	0x7A, 
 OUT (11h), A	2	0xD3, 0x11, 	//dataB <-- D
 LD A, D1h		2	0x3E, 0xD1 	//(1101xxx1)
 OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- 0xD1
 LD A, E1h		2	0x3E, 0xE1, 	//(1110xxx1)
 OUT (10h), A	2	0xD3, 0x10, 	//dataA <-- 0xE1
-RET		1	0xC9, 
+RET				1	0xC9, 
 ============================================================= SD
 -------------------------------------- PIO <-> SD
 SCK 	<-> portA3
-DO 	<-> portA2
-DI 	<-> portA1
-SS 	<-> portA0
+DO 		<-> portA2
+DI 		<-> portA1
+SS 		<-> portA0
 -------------------------------------- CPU <-> PIO
 port 0x10 dataA
 port 0x12 comA

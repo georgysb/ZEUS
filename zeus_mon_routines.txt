@@ -10,7 +10,7 @@
 0x00, 0xC3, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 	// RST 0x38
 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, // uppercase hex table $8040
 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66,	// lowercase hex table $8050
-0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 			// reserved 0x60-0x65
+0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 							// reserved 0x60-0x65
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xED, 0x45, 	// NMI primer 0x66-0x6F
 0x63, 0x6C, 0x72,             	// 0x8070 "clr"
 0x64, 0x75, 0x6D, 0x70, 0x20, 	// 0x8073 "dump "
@@ -25,17 +25,17 @@
 0x63, 0x72, 0x63, 0x37, 0x20, 	// 0x809F "crc7 "
 0x73, 0x64, 0x69, 0x20,       	// 0x80A4 "sdi "
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ BIOS routines
--------------------------------------------------------------------------------------------------// SIO void handler
+------------------------------------------------// SIO void handler
 EI		1	0xFB, 		
 RETI	2	0xED, 0x4D, 
--------------------------------------------------------------------------------------------------// pause counter (input B)*4103 ticks  (+0x0009)
+------------------------------------------------// pause counter (input B)*4103 ticks  (+0x0009)
 LD C, 0xFF	(7)	0x0E, 0xFF, 
 DEC C		(4)	0x0D, 
 JR NZ, -3	(12) 0x20, 0xFD, 
 DEC B		(4)	0x05, 
 JR NZ, -8	(12) 0x20, 0xF8, 
 RET			1	0xC9, 
---------------------------------------------------------------------------------------------------// TFT_char_cell_set (input D, E) routine (+0x0059)
+------------------------------------------------// TFT_char_cell_set (input D, E) routine (+0x0059)
 PUSH HL			0xE5, 
 PUSH BC			0xC5, 
 PUSH DE			0xD5, 
@@ -95,7 +95,7 @@ POP DE		1	0xD1,
 POP BC		1	0xC1, 
 POP HL		1	0xE1, 
 RET			1	0xC9, 
------------------------------------------------------------------------------------------------------------//TFT_char_fill (input A) routine (+0x0050)
+---------------------------------------------------//TFT_char_fill (input A) routine (+0x0050)
 PUSH HL		1	0xE5, 
 PUSH BC		1	0xC5, 
 PUSH DE		1	0xD5, 
@@ -145,7 +145,7 @@ POP DE		1	0xD1,
 POP BC		1	0xC1, 
 POP HL		1	0xE1, 
 RET			1	0xC9, 
----------------------------------------------------------------------------------------------------------------------// TFT_char_erase (+0x0027)
+----------------------------------------------------------------// TFT_char_erase (+0x0027)
 LD A, ($FE04)	3	0x3A, 0x04, 0xFE, 		//keyb buff pointer low byte read
 CP 0			2	0xFE, 0x00, 
 RET Z 			1	0xC8, 
@@ -162,11 +162,11 @@ DEC E			1	0x1D,
 LD D, 40		2	0x16, 0x28, 
 DEC D			1	0x15, 
 CALL tft_ch_cell_set	3	0xCD, 0xXX, 0xXX, 
-LD A, 0x20		2	0x3E, 0x20, 
-CALL tft_ch_fill	3	0xCD, 0xXX, 0xXX, 
-LD ($FE0C), DE	4	0xED, 0x53, 0x0C, 0xFE, 	//char position write
-RET				1	0xC9, 
--------------------------------------------------------------------------------------------------// SIO UART(0x00) subroutine(+0x000D)
+LD A, 0x20				2	0x3E, 0x20, 
+CALL tft_ch_fill		3	0xCD, 0xXX, 0xXX, 
+LD ($FE0C), DE			4	0xED, 0x53, 0x0C, 0xFE, 	//char position write
+RET						1	0xC9, 
+--------------------------------------------------------------// SIO UART(0x00) subroutine(+0x000D)
 :portA_data_read(13)
 IN A, (00h)		2	0xDB, 0x00, 
 LD HL, ($FE06)	3	0x2A, 0x06, 0xFE, 		//UART buff pointer read
@@ -175,7 +175,7 @@ INC HL			1	0x23,
 LD ($FE06), HL	3	0x22, 0x06, 0xFE, 		//UART buff pointer write
 EI				1	0xFB, 
 RETI			2	0xED, 0x4D, 
--------------------------------------------------------------------------------------------------// SIO port PS/2(0x00) subroutine(+0x009D)
+--------------------------------------------------------------// SIO port PS/2(0x00) subroutine(+0x009D)
 :portB_data_read(8)
 PUSH BC			1	0xC5, 
 IN A, (01h)		2	0xDB, 0x01, 		//read current scan code
@@ -213,7 +213,7 @@ JR NC, jp3		2	0x30, 0x33,
 
 LD D, A			1	0x57, 
 LD HL, ($FE04)	3	0x2A, 0x04, 0xFE, 		//keyb buff pointer read(17)
-LD A, 255		2	0x3E, 0xFF, 
+LD A, 0xFF		2	0x3E, 0xFF, 
 CP L			1	0xBD, 
 LD A, D			1	0x7A, 
 JR Z, jp3		2	0x28, 0x29, 
@@ -282,7 +282,7 @@ POP BC			1	0xC1,
 EI				1	0xFB, 
 RETI			2	0xED, 0x4D, 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ CMD parser
--------------------------------------------------------------------------------------------------// hex_parse (input DE output A) (+0x003C)
+----------------------------------------------------------------// hex_parse (input DE output A) (+0x003C)
 PUSH BC		1	0xC5, 
 PUSH HL		1	0xE5, 
 
@@ -320,7 +320,7 @@ LD A, (HL)	1	0x7E, 		// combine(4)
 POP HL		1	0xE1, 
 POP BC		1	0xC1, 
 RET			1	0xC9, 
--------------------------------------------------------------------------------------------------// hex_print (input A) (+0x002A)
+-----------------------------------------------------------------// hex_print (input A) (+0x002A)
 PUSH BC		1	0xC5, 
 PUSH HL		1	0xE5, 
 LD C, A		1	0x4F, 
@@ -350,7 +350,7 @@ CALL tft_ch_fill	3	0xCD, 0xXX, 0xXX,
 POP HL		1	0xE1, 
 POP BC		1	0xC1, 
 RET			1	0xC9, 
--------------------------------------------------------------------------------------------------// syntax error command(+0x001F)
+---------------------------------------------------------------// syntax error command(+0x001F)
 PUSH BC			1	0xC5, 
 PUSH HL			1	0xE5, 
 
@@ -373,7 +373,7 @@ JR NZ, - 12			2	0x20, 0xF4,
 POP HL				1	0xE1, 
 POP BC				1	0xC1, 
 RET					1	0xC9, 
--------------------------------------------------------------------------------------------------// Cmdline_parser (+0x00XX)
+-------------------------------------------------------------// Cmdline_parser (+0x00XX)
 PUSH BC			1	0xC5, 
 PUSH HL			1	0xE5, 
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB (6)
@@ -418,7 +418,7 @@ POP HL		1	0xE1,
 POP BC		1	0xC1, 
 RET			1	0xC9, 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ CMDS
--------------------------------------------------------------------------------------------------// >"clr" command(+0x007E)
+-------------------------------------------------------------// >"clr" command(+0x007E)
 0x16, 0x36, 0xCD, 0x0C, 0x93, 		// com (0x36) Memory access control(10)
 0x16, 0x08, 0xCD, 0x18, 0x93, 		// MY=0; MX=0; MV=0; ML=0; BGR=1; MH=0
 
@@ -446,7 +446,7 @@ RET			1	0xC9,
 0x16, 0x36, 0xCD, 0x0C, 0x93, 		// com (0x36) Memory access control(10)
 0x16, 0x28, 0xCD, 0x18, 0x93, 		// MY=0; MX=0; MV=1; ML=0; BGR=1; MH=0
 0xC9, 
--------------------------------------------------------------------------------------------------// >"dump " command(+0x006C)
+-------------------------------------------------------------// >"dump " command(+0x006C)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
 LD H, A			1	0x67, 
 LD L, $0x05		2	0x2E, 0x05, 	// keyb buff pointer LSB set
@@ -519,7 +519,7 @@ LD HL, $0080	3	0x21, 0x80, 0x00, 	//color R(8)
 LD ($FE08), HL	3	0x22, 0x08, 0xFE, 
 EXX				1	0xD9, 
 RET				1	0xC9, 
--------------------------------------------------------------------------------------------------// >"send " command(+0x0045)
+---------------------------------------------------------------// >"send " command(+0x0045)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
 LD H, A			1	0x67, 
 LD L, $0x05		2	0x2E, 0x05, 	// keyb buff pointer LSB set
@@ -574,7 +574,7 @@ DEC A		1	0x3D,
 JR NZ, -14	2	0x20, 0xF2, 
 
 RET		1	0xC9, 
--------------------------------------------------------------------------------------------------// >"load " command(+0x003B)
+---------------------------------------------------------------// >"load " command(+0x003B)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
 LD H, A		1	0x67, 
 LD L, $0x05	2	0x2E, 0x05, 	// keyb buff pointer LSB set
@@ -616,7 +616,7 @@ INC C		1	0x0C,
 JR -28		2	0x18, 0xE4, 	//jump next_byte
 
 RET		1	0xC9, 
--------------------------------------------------------------------------------------------------// >"move " command(+0x0047)
+--------------------------------------------------------------// >"move " command(+0x0047)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
 LD H, A		1	0x67, 
 LD L, $0x05	2	0x2E, 0x05, 	// keyb buff pointer LSB set
@@ -675,7 +675,7 @@ POP HL		1	0xE1, 		//LD HL source addr
 LDIR		2	0xED, 0xB0, 	//copy BC bytes block HL -> DE
 
 RET		1	0xC9, 
--------------------------------------------------------------------------------------------------// >"jump " command(+0x001A)
+---------------------------------------------------------------// >"jump " command(+0x001A)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
 LD H, A		1	0x67, 
 LD L, $0x05	2	0x2E, 0x05, 	// keyb buff pointer LSB set
@@ -699,7 +699,7 @@ POP HL		1	0xE1,
 JP (HL)		1	0xE9, 
 
 RET		1	0xC9, 
--------------------------------------------------------------------------------------------------// >"exeс " command(+0x0035)
+-----------------------------------------------------------------// >"exeс " command(+0x0035)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(9)
 LD H, A		1	0x67, 
 LD L, $0x04	2	0x2E, 0x04, 	// keyb buff pointer LSB set
@@ -733,7 +733,7 @@ INC C		1	0x0C,
 LD (BC), A		1	0x02, 
 CALL $0100	3	0xCD, 0x00, 0x01, 
 RET		1	0xC9, 
--------------------------------------------------------------------------------------------------// >"sysl " command(+0x0046)
+-----------------------------------------------------------------// >"sysl " command(+0x0046)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
 LD H, A		1	0x67, 
 LD L, $0x05	2	0x2E, 0x05, 	// keyb buff pointer LSB set
@@ -777,7 +777,7 @@ OUT (F0h), A	2	0xD3, 0xF0,
 CALL hex_print	3	0xCD, 0xXX, 0xXX, 
 POP DE		1	0xD1, 
 RET		1	0xC9, 
--------------------------------------------------------------------------------------------------// >"sysh " command(+0x0048)
+-----------------------------------------------------------------// >"sysh " command(+0x0048)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
 LD H, A		1	0x67, 
 LD L, $0x05	2	0x2E, 0x05, 	// keyb buff pointer LSB set
@@ -821,7 +821,7 @@ OUT (F0h), A	2	0xD3, 0xF0,
 CALL hex_print	3	0xCD, 0xXX, 0xXX, 
 POP DE		1	0xD1, 
 RET		1	0xC9, 
--------------------------------------------------------------------------------------------------// >"out " command(+0x0019)
+-----------------------------------------------------------------// >"out " command(+0x0019)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
 LD H, A		1	0x67, 
 LD L, $0x04	2	0x2E, 0x04, 	// keyb buff pointer LSB set
@@ -842,7 +842,7 @@ CALL hex_parse	3	0xCD, 0xXX, 0xXX,
 
 OUT (C), A	2	0xED, 0x79, 	//output A to port C(3)
 RET		1	0xC9, 
--------------------------------------------------------------------------------------------------// >"inp " command(+0x001A)
+----------------------------------------------------------------// >"inp " command(+0x001A)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 	// keyb buff pointer MSB(6)
 LD H, A		1	0x67, 
 LD L, $0x04	2	0x2E, 0x04, 	// keyb buff pointer LSB set
@@ -859,7 +859,7 @@ CALL TFT_ch_cell	3	0xCD, 0xXX, 0xXX,
 IN A, (C)		2	0xED, 0x78, 		//read port(C)
 CALL hex_print		3	0xCD, 0xXX, 0xXX, 	//print
 RET			1	0xC9, 
--------------------------------------------------------------------------------------------------// >"crc7 " command(+0x0030+0x0B)
+-------------------------------------------------------------------// >"crc7 " command(+0x0030+0x0B)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 		// keyb buff pointer MSB(9)
 LD H, A		1	0x67, 
 LD L, $0x04	2	0x2E, 0x04, 		// keyb buff pointer LSB set
@@ -892,7 +892,7 @@ CALL crc7_add	3	0xCD, 0xXX, 0xXX,
 
 RET		1	0xC9, 
 
---------------------------------------------------------------------------------//>"sdi " command [L bytes at $0100] (+0x0038)
+-----------------------------------------------------------------//>"sdi " command [L bytes at $0100] (+0x0038)
 LD IX, $FEFE	4	0xDD, 0x21, 0xFE, 0xFE, 	//temp variable(10)
 LD A ($FE05)	3	0x3A, 0x05, 0xFE, 		// keyb buff pointer MSB
 LD H, A		1	0x67, 
@@ -929,7 +929,7 @@ LD A, 01h		2	0x3E, 0x01, 	//SCK# DI# SS(5)
 OUT (00h), A	2	0xD3, 0x00, 	//dataA <-- A
 RET		1	0xC9, 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ SD routines
--------------------------------------------------------------------------------//crc7_add (input BC last byte pointer)(+0x003D)
+--------------------------------------------------------------//crc7_add (input BC last byte pointer)(+0x003D)
 PUSH BC		1	0xC5, 	//CRC7 block load $FC00(14)
 POP HL		1	0xE1, 
 repeat:
@@ -986,9 +986,9 @@ LD (HL), A		1	0x77,
 RET		1	0xC9, 
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ SETUP
--------------------------------------------------------------------------------------------------// stackpointer allocation
+----------------------------------------------------------------// stackpointer allocation
 LD SP, FF, FF	3	0x31, 0xFF, 0xFF, 
--------------------------------------------------------------------------------------------------// interrupt table allocation
+---------------------------------------------------------------// interrupt table allocation
 LD A, 7F		2	0x3E, 0x81, 
 LD I, A		2	0xED, 0x47, 
 //---------------------------------------------------- 2BYTE values & pointers
@@ -1012,7 +1012,7 @@ LD I, A		2	0xED, 0x47,
 0x21, 0x81, 0xFE, //$FE81 <- 0xFF :SYSR state
 0x36, 0xFF, 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ IO CONFIG
--------------------------------------------------------------------------------------------------// PIO ports config (TFT+SD)
+-------------------------------------------------------------------// PIO ports config (TFT+SD)
 LD A, 03h			0x3E, 0x03, //portA Interrupt Disable Word (disabled)
 OUT (12h), A		0xD3, 0x12, 
 LD A, CFh			0x3E, 0xCF, //portA Mode Control Word (Mode 3)
@@ -1025,7 +1025,7 @@ LD A, CFh			0x3E, 0xCF, //portB Mode Control Word (Mode 3)
 OUT (13h), A		0xD3, 0x13, 
 LD A, 04h			0x3E, 0x04, //portB IO Register Control Word (B2 input)
 OUT (13h), A		0xD3, 0x13, 
--------------------------------------------------------------------------------------------------// PIO ports config (GPIO A3A2 = 00)
+---------------------------------------------------------------------// PIO ports config (GPIO A3A2 = 00)
 LD A, 03h			0x3E, 0x03, //portA Interrupt Disable Word (disabled)
 OUT (22h), A		0xD3, 0x22, 
 LD A, CFh			0x3E, 0xCF, //portA Mode Control Word (Mode 3)
@@ -1038,7 +1038,7 @@ LD A, CFh			0x3E, 0xCF, //portB Mode Control Word (Mode 3)
 OUT (23h), A		0xD3, 0x23, 
 LD A, 00h			0x3E, 0x00, //portB IO Register Control Word (all output)
 OUT (23h), A		0xD3, 0x23, 
--------------------------------------------------------------------------------------------------// SIO ports config
+------------------------------------------------------------------------// SIO ports config
 LD A, 18h			0x3E, 0x18, //WR0 SIO reset
 OUT (02h), A		0xD3, 0x02, 
 LD A, 14h			0x3E, 0x14, //WR4 reset ext/status int
@@ -1080,7 +1080,7 @@ LD A, 11h			0x3E, 0x11, //WR1 reset ext/status int
 OUT (03h), A		0xD3, 0x03, 
 LD A, 1Ch			0x3E, 0x9C, //Wait ON/Rx int all char no parity/status affects
 OUT (03h), A		0xD3, 0x03, 
------------------------------------------------------------------------------------------------// TFT ILI9341 init
+----------------------------------------------------------------------------// TFT ILI9341 init
 0x16, 0xC0, 0xCD, 0x0C, 0x93, // com (0xC0) Power control
 0x16, 0x17, 0xCD, 0x18, 0x93, // GVDD < (Vcc-0.5V)
 0x16, 0xC1, 0xCD, 0x0C, 0x93, // com (0xC1) Power control
@@ -1111,7 +1111,7 @@ OUT (03h), A		0xD3, 0x03,
 
 0x16, 0x36, 0xCD, 0x0C, 0x93, // com (0x36) Memory access control
 0x16, 0x08, 0xCD, 0x18, 0x93, // MY=0; MX=0; MV=0; ML=0; BGR=1; MH=0
------------------------------------------------------------------------------------------------// TFT fill background
+------------------------------------------------------------------------// TFT fill background
 0x16, 0x2C, 0xCD, 0x0C, 0x93, 			//Mem write com backcolor
 0xC5, 0x06, 0xFF, 0x0E, 0xF0, 			//PUSH BC/LD B,FF/LD C,F0 255x240
 0x3A, 0x0E, 0xFE, 0x57, 0xCD, 0x18, 0x93, 	//data byte rg
@@ -1124,7 +1124,7 @@ OUT (03h), A		0xD3, 0x03,
 
 0x16, 0x36, 0xCD, 0x0C, 0x93, 			// com (0x36) Memory access control
 0x16, 0x28, 0xCD, 0x18, 0x93, 			// MY=0; MX=0; MV=1; ML=0; BGR=1; MH=0
--------------------------------------------------------------------------------------------------// TFT intro
+--------------------------------------------------------------------------// TFT intro
 0xED, 0x5B, 0x0C, 0xFE, 	//LD DE, ($FE0C)
 0xCD, 0xXX, 0xXX, 		// call TFT_char_cell_set
 0x3E, 0x41, 0xCD, 0xXX, 0xXX, 	// call TFT_char_fill 0x41
@@ -1133,16 +1133,16 @@ OUT (03h), A		0xD3, 0x03,
 0x3E, 0x3E, 0xCD, 0xXX, 0xXX, 	// call TFT_char_fill 0x3E
 0x14, 				//INC D
 0xED, 0x53, 0x0C, 0xFE, 	//LD ($FE0C), D
--------------------------------------------------------------------------------------------------// IO check
+-------------------------------------------------------------------------// IO check
 LD DE, 0x0D, 0x25		0x11, 0x0D, 0x25, 
 CALL TFT_ch_cell		0xCD, 0xXX, 0xXX, 
 LD A, 01h			0x3E, 0x00, 		//RR0 (GPIO port A)
 IN A, (23h)			0xDB, 0x23, 
 CP, 0xFF			0xFE, 0x00, 
 JR NZ, 0x09			0x20, 0x09, 
-LD A, 47h		2	0x3E, 0x47, 
+LD A, 47h			2	0x3E, 0x47, 
 CALL TFT_char_fill	3	0xCD, 0xXX, 0xXX, 	//print "G"
-LD A, 0x47		2	0x3E, 0x47, 		
+LD A, 0x47			2	0x3E, 0x47, 		
 OUT (00h), A		2	0xD3, 0x00, 		//send "G"
 
 LD DE, 0x0D, 0x26		0x11, 0x0D, 0x26, 
@@ -1151,9 +1151,9 @@ LD A, 01h			0x3E, 0x00, 		//RR0 (PIO port A)
 IN A, (13h)			0xDB, 0x13, 
 CP, 0xFF			0xFE, 0xFF, 
 JR NZ, 0x09			0x20, 0x09, 
-LD A, 50h		2	0x3E, 0x50, 
+LD A, 50h			2	0x3E, 0x50, 
 CALL TFT_char_fill	3	0xCD, 0xXX, 0xXX, 	//print "P"
-LD A, 0x50		2	0x3E, 0x50, 		
+LD A, 0x50			2	0x3E, 0x50, 		
 OUT (00h), A		2	0xD3, 0x00, 		//send "P"
 
 LD DE, 0x0D, 0x27		0x11, 0x0D, 0x27, 
@@ -1166,26 +1166,26 @@ JR NZ, 0x09			0x20, 0x09,
 LD A, 53h		2	0x3E, 0x53, 
 CALL TFT_char_fill	3	0xCD, 0xXX, 0xXX, 	//print "S"
 LD A, 0x53		2	0x3E, 0x53, 		
-OUT (00h), A		2	0xD3, 0x00, 		//send "S"
+OUT (00h), A	2	0xD3, 0x00, 		//send "S"
 
 LD A, 0x0D		2	0x3E, 0x0D, 
-OUT (00h), A		2	0xD3, 0x00, 		//send ret
--------------------------------------------------------------------------------------------------// banks ID
+OUT (00h), A	2	0xD3, 0x00, 		//send ret
+---------------------------------------------------------// banks ID
 LD A, 0xF0		2	0x3E, 0xF0, 
 LD B, 0xFF		2	0x06, 0xFF, 
 :next bank
-OUT (F0h), A		2	0xD3, 0xF0, 		//sys reg <- A
+OUT (F0h), A	2	0xD3, 0xF0, 		//sys reg <- A
 PUSH BC			1	0xC5, 
 LD HL, 0x00, 0x80	3	0x21, 0x00, 0x80, 	//HL <-  0x0000
 LD DE, 0x00, 0x00	3	0x11, 0x00, 0x00, 	//DE  <-  0x8000
 LD BC, 0x70, 0x00	3	0x01, 0x70, 0x00, 	//BC  <-  0x0070
 LDIR			2	0xED, 0xB0, 		//copy 0x0070 bytes block 0x8000 -> 0x0000
 POP BC			1	0xC1, 
-LD ($0007), A		3	0x32, 0x07, 0x00, 
+LD ($0007), A	3	0x32, 0x07, 0x00, 
 INC A			1	0x3C, 
 CP B			1	0xB8, 
 JR NZ, -22		2	0X20, 0xEA, 		//jump next bank
---------------------------------------------------------------------------// banks ID check
+---------------------------------------------------------// banks ID check
 LD C, 0xF0	2	0x0E, 0xF0, 
 LD B, 0xFE	2	0x06, 0xFE, 
 
@@ -1194,33 +1194,33 @@ LD A, 0xEF	2	0x3E, 0xEF,
 CP B		1	0xB8, 
 JR Z, 11	2	0X28, 0x0B, 	//jump banks print
 
-OUT (C), B	2	0xED, 0x41, 	//sys reg <- A
+OUT (C), B		2	0xED, 0x41, 	//sys reg <- A
 LD A, ($0007)	3	0x3A, 0x07, 0x00, 
-CP B		1	0xB8, 
-JR NZ, 3	2	0X20, 0x03, 	//jump banks print
-DEC B		1	0x05, 
-JR -16		2	0X18, 0xF0, 	//jump next bank
+CP B			1	0xB8, 
+JR NZ, 3		2	0X20, 0x03, 	//jump banks print
+DEC B			1	0x05, 
+JR -16			2	0X18, 0xF0, 	//jump next bank
 
 :banks print
 LD DE, 0x0E, 0x26	3	0x11, 0x0E, 0x26, 
 CALL TFT_ch_cell	3	0xCD, 0xXX, 0xXX, 
-LD A, 0xFF		2	0x3E, 0xFF, 
-SUB B			1	0x90, 	
+LD A, 0xFF			2	0x3E, 0xFF, 
+SUB B				1	0x90, 	
 CALL hex_print		3	0xCD, 0xXX, 0xXX, 
 
-LD D, 0x25		2	0x16, 0x25, 
+LD D, 0x25			2	0x16, 0x25, 
 CALL TFT_ch_cell	3	0xCD, 0xXX, 0xXX, 
-LD A, 0x2F		2	0x3E, 0x2F, 		//"ascii /"
+LD A, 0x2F			2	0x3E, 0x2F, 		//"ascii /"
 CALL TFT_char_fill	3	0xCD, 0xXX, 0xXX, 
---------------------------------------------------------------------------// bank E init
+--------------------------------------------------// bank E init
 LD A, ($FE81)		3	0x3A, 0x81, 0xFE, 
 LD HL, $FEFF		3	0x21, 0xFF, 0xFE, 
-LD (HL), A		1	0x77, 
-LD A, 0xFE		2	0x3E, 0xFE, 
-RRD			2	0xED, 0x67, 
-LD A, (HL)		1	0x7E, 
-RRD			2	0xED, 0x67, 
-LD A, (HL)		1	0x7E, 
+LD (HL), A			1	0x77, 
+LD A, 0xFE			2	0x3E, 0xFE, 
+RRD					2	0xED, 0x67, 
+LD A, (HL)			1	0x7E, 
+RRD					2	0xED, 0x67, 
+LD A, (HL)			1	0x7E, 
 LD ($FE81), A		3	0x32, 0x81, 0xFE, 	//SYSREG state low nibble write
 
 LD DE, 0x0E, 0x23	3	0x11, 0x0E, 0x23,
@@ -1228,9 +1228,9 @@ CALL TFT_ch_cell	3	0xCD, 0xXX, 0xXX,
 LD A, ($FE81)		3	0x3A, 0x81, 0xFE, 
 OUT (F0h), A		2	0xD3, 0xF0, 		//SYSREG <- state (switch to bank E)
 CALL hex_print		3	0xCD, 0xXX, 0xXX, 
--------------------------------------------------------------------------------------------------// interrupt setup
+--------------------------------------------------------// interrupt setup
 INT 2		2	0xED, 0x5E, 	//int mode 2 
-EI		1	0xFB, 		//EI
+EI			1	0xFB, 		//EI
 
 0x3E, 0x4F, 0xD3, 0x00, 	//UART <- "O"
 0x3E, 0x4B, 0xD3, 0x00, 	//UART <- "K"
@@ -1241,13 +1241,13 @@ EI		1	0xFB, 		//EI
 LD HL, 0x00, 0x00	3	0x21, 0x00, 0x00, 	//HL <-  0x0000
 LD DE, 0x00, 0x80	3	0x11, 0x00, 0x80, 	//DE  <-  0x8000
 LD BC, 0x00, 0x30	3	0x01, 0x00, 0x30, 	//BC  <-  0x3000
-LDIR			2	0xED, 0xB0, 	//copy 0x3000 bytes block 0x0000 -> 0x8000
+LDIR				2	0xED, 0xB0, 	//copy 0x3000 bytes block 0x0000 -> 0x8000
 LD HL, 0x00, 0x00	3	0x21, 0x20, 0x7F, 	//HL <-  0x7F20
 LD DE, 0x00, 0x80	3	0x11, 0x00, 0xFC, 	//DE  <-  0xFC00
 LD BC, 0x00, 0x30	3	0x01, 0xE0, 0x00, 	//BC  <-  0x00E0
-LDIR			2	0xED, 0xB0, 	//copy 0x00E0 bytes block 0x7F20 -> 0xFC00
+LDIR				2	0xED, 0xB0, 	//copy 0x00E0 bytes block 0x7F20 -> 0xFC00
 LD HL, 0x00, 0xA0	3	0x21, 0x00, 0xA0, 	//HL <-  new setup address
 LD $8002, HL		3	0x22, 0x02, 0x80, 	//$8002  <-  HL
-JP $8000		3	0xC3, 0x00, 0x80, 	//jump $8000
+JP $8000			3	0xC3, 0x00, 0x80, 	//jump $8000
 
 =================================================================// END
