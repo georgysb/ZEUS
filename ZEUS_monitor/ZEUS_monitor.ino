@@ -201,9 +201,9 @@ const byte INTVEC_TABLE[] = {
 0x00, 0xFC,
 0xFF}; //SIO interrupt table
 int blocksize_intvec = sizeof(INTVEC_TABLE);
-//================================================================================ BIOS routines
+//================================================================================ basic IO subroutines
 int offset_bios = 0x1300;
-const byte BLOCK_BIOS[] = {
+const byte BLOCK_BIOs[] = {
 0xFB, 0xED, 0x4D, //>SIO void handler $9300(+0x0003)
 //---------------
 0x0E, 0xFF, 0x0D, 0x20, 0xFD, 0x05, 0x20, 0xF8, 0xC9, //>Pause (input B)*4103 ticks $9303(+0x0009)
@@ -262,8 +262,8 @@ const byte BLOCK_BIOS[] = {
 0x3E, 0x5A, 0xB9, 0x20, 0x0C, 0x3E, 0xF0, 0xB8, 0x20, 0x07, 0x3E, 0x0D, 0xD3, 0x00, 0xCD, 0x3C, 0xFC, // check Enter release
 0x21, 0x80, 0xFE, 0x71, 0xC1, 0xFB, 0xED, 0x4D, //jp4: not good for print
 0xFF};
-int blocksize_bios = sizeof(BLOCK_BIOS);
-//================================================================================ CMD PARSER
+int blocksize_bios = sizeof(BLOCK_BIOs);
+//================================================================================ CMDs PARSER
 int offset_parser = 0x1500;
 const byte BLOCK_PARSER[] = {
 0xC5, 0xE5, //>Hex parse (input DE output A) $9500(+0x003C)
@@ -304,9 +304,9 @@ const byte BLOCK_PARSER[] = {
 0xE1, 0xC1, 
 0xC9, 0xFF};
 int blocksize_parser = sizeof(BLOCK_PARSER);
-//================================================================================ CMDS
+//================================================================================ CMDs
 int offset_cmds = 0x1700;
-const byte BLOCK_CMDS[] = {
+const byte BLOCK_CMDs[] = {
 //---------------//>"clr" command $9700(+0x007E)
 0x16, 0x36, 0xCD, 0x09, 0xFC, 	
 0x16, 0x08, 0xCD, 0x0D, 0xFC,   // com (0x36) Memory access control MV=0;
@@ -440,7 +440,7 @@ const byte BLOCK_CMDS[] = {
 0xDD, 0x4E, 0x00, 0x21, 0x00, 0xFC, 0xCD, 0xA8, 0xFC, 0x23, 0x0D, 0x20, 0xF9, 
 0x3E, 0x01, 0xD3, 0x01, 
 0xC9, 0xFF};
-int blocksize_cmds = sizeof(BLOCK_CMDS);
+int blocksize_cmds = sizeof(BLOCK_CMDs);
 //================================================================================ SD routines
 int offset_sd = 0x1B00;
 const byte BLOCK_SD[] = {
@@ -735,22 +735,31 @@ void loop() {
   unsigned int addr_in = 0;
   ButtonState = digitalRead(BUTTON);
   if(!ButtonState){    
-    int byteswrit = 0;
-  //  Serial.println("writing..");  
+   int byteswrit = 0;
   //  for(int j=0; j<0x0200; j++){writeEEPROM(0x2200 + j, 0xFF); byteswrit++;}
-    
+
+   Serial.println("writing Font Table");
    for(int j=0; j<blocksize_font; j++){writeEEPROM(offset_font + j, FONT_TABLE[j]); byteswrit++;}
+   Serial.println("writing Scan Table");
    for(int j=0; j<blocksize_scan; j++){writeEEPROM(offset_scan + j, SCAN_TABLE[j]); byteswrit++;}
 
+   Serial.println("writing Page 0");
    for(int j=0; j<blocksize_0; j++){writeEEPROM(offset_0 + j, BLOCK_0[j]); byteswrit++;}
+   Serial.println("writing IntVecs");
    for(int j=0; j<blocksize_intvec; j++){writeEEPROM(offset_intvec + j, INTVEC_TABLE[j]); byteswrit++;}
-   for(int j=0; j<blocksize_bios; j++){writeEEPROM(offset_bios + j, BLOCK_BIOS[j]); byteswrit++;}
-    
+   Serial.println("writing BIOs");
+   for(int j=0; j<blocksize_bios; j++){writeEEPROM(offset_bios + j, BLOCK_BIOs[j]); byteswrit++;}
+
+   Serial.println("writing Parser");
    for(int j=0; j<blocksize_parser; j++){writeEEPROM(offset_parser + j, BLOCK_PARSER[j]); byteswrit++;}
-   for(int j=0; j<blocksize_cmds; j++){writeEEPROM(offset_cmds + j, BLOCK_CMDS[j]); byteswrit++;}
+   Serial.println("writing CMDs");
+   for(int j=0; j<blocksize_cmds; j++){writeEEPROM(offset_cmds + j, BLOCK_CMDs[j]); byteswrit++;}
+   Serial.println("writing SD");
    for(int j=0; j<blocksize_sd; j++){writeEEPROM(offset_sd + j, BLOCK_SD[j]); byteswrit++;}
-    
+
+   Serial.println("writing Setup");
    for(int j=0; j<blocksize_setup; j++){writeEEPROM(offset_setup + j, BLOCK_SETUP[j]); byteswrit++;}
+   Serial.println("writing Primer");
    for(int j=0; j<blocksize_primer; j++){writeEEPROM(offset_primer + j, BLOCK_PRIMER[j]); byteswrit++;}
 
     digitalWrite(ADDR[15], 1);  //CE# off
