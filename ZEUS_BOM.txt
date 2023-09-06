@@ -86,7 +86,7 @@
 1x	Z0842006PSC (PIO) dip-40
 1x	SN74HC32N (OR gate) dip-14
 1x	SN74HC00N (NAND gate) dip-14
-1x	ARDUINO UNO SHIELD TFT2.8" 320x240 (ili9341)
+1x	ARDUINO UNO SHIELD TFT2.8" 320x240 (ILI9341)
 
 ----------------------------------MISC
 10x	jumper 6mm
