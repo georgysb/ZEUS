@@ -1,6 +1,6 @@
 ----------------------------------ZEUS6 (backboard)
-6x	PBD-40
-6x	PBD-20
+6x	PBD-40 header
+6x	PBD-20 header
 1x	USB socket (type B)
 1x	SMTS-102-2C3 (spdt switch)
 1x	tactile button corner
@@ -16,26 +16,26 @@
 1x	MCP2221A (USB-UART bridge) dip-14
 
 ----------------------------------ZEUS CPU (module)
-1x	PLD-40R
-1x	PLD-20R
+1x	PLD-40R header
+1x	PLD-20R header
 1x	dil-40 wide socket
 1x	dil-20 narrow socket
 2x	dil-14 narrow socket
-1x	dil8 narrow socket (cylindrical)
+1x	dil-8 narrow socket (collet)
 1x	PLS-2 (jumper)
 3x	SMD capacitor 1uF(1206)
 6x	SMD resistor 10k(0805)
 1x	SMD shottky diod
 
 1x	Z84C0010PEG (CPU) dip-40
-1x	DM74LS374N (trigger) dip-20
+1x	DM74LS374N (flip-flop) dip-20
 1x	SN74HC32N (OR gate) dip-14
 1x	SN74HC00N (NAND gate) dip-14
 1x	10MHz (clock generator) dil-8
 
-----------------------------------ZEUS MEM128k (module)
-1x	PLD-40R
-1x	PLD-20R
+----------------------------------ZEUS MEM128k/512k (module)
+1x	PLD-40R header
+1x	PLD-20R header
 1x	ZIF-28 wide socket
 1x	dil-32 wide socket
 3x	dil-14 narrow socket
@@ -45,16 +45,16 @@
 6x	SMD resistor 10k(0805)
 
 1x	AT28C256-15PU (EEPROM 32kB) dip-28
-1x	AS6C1008 (SRAM 128k) dip-32
+1x	AS6C1008/AS6C4008 (SRAM 128k/512k) dip-32
 2x	SN74HC32N (OR gate) dip-14
 1x	SN74HC00N (NAND gate) dip-14
 
 ----------------------------------ZEUS SIO (module)
-1x	PLD-40R
-1x	PLD-20R
+1x	PLD-40R header
+1x	PLD-20R header
 1x	dil-40 wide socket
 1x	dil-14 narrow socket
-1x	dil-8 narrow socket (cylindrical)
+1x	dil-8 narrow socket (collet)
 2x	PLS-2 (jumper)
 1x	PLD-8 (jumper header)
 1x	PLD-16 (jumper header)
@@ -69,8 +69,8 @@
 1x	7.3728MHz (clock generator) dil-8
 
 ----------------------------------ZEUS TFT2.8 (module)
-1x	PLD-40R
-1x	PLD-20R
+1x	PLD-40R header
+1x	PLD-20R header
 1x	dil-40 wide socket
 2x	dil-14 narrow socket
 1x	PLD-16 (jumper header)
