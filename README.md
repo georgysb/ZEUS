@@ -3,26 +3,17 @@ https://www.tindie.com/products/georgysb/zeus-8-bit-hobby-computer-kit/
 
 ZEUS is a custom modular standalone 8-bit computer kit for boys 40+ and computer science students. It was designed to be robust and handy for Z80 assembly language learning and code developing in a bootstrapping way. I always wanted to have a computer good for lowest possible level of programming (machine code/assembly). My wish was to enjoy the magic of gradual bringing to life a piece of a hardware, where I can control everything with use of simple yet effective machine language subroutines, reinventing my own ways towards building operating system, assembler/disassembler and maybe even some homebrew high level language. And this small machine had to have an ability to exchange data with a modern PC, but also be completely autonomous from it. My first 8-bit design was based on 3 solderless breadboards. And the experience of hand wiring hundreds of connections made me dream of a common bus modular PCB design. And this kit is the final result of that effort and it can be further expanded with some additional modules, that now are easy to develop and test with this kit.
 
-**ZEUS specs:**
+**ZEUS specs:**  
+Z80 CPU 10 MHz   
+EEPROM 32 kB  
+SRAM 128 kB (supports up to 512 kB)  
+TFT2.8" 320x240 (ILI9341)  
+UART-USB 115200 baud  
+PS/2 port for keyboard  
 
-Z80 CPU 10 MHz
- 
-EEPROM 32 kB
-
-SRAM 128 kB (supports up to 512 kB)
-
-TFT2.8" 320x240 (ILI9341)
-
-UART-USB 115200 baud
-
-PS/2 port for keyboard
-
-**ZEUS memory map:**
-
-highmem($8000-$FFFF) SRAM
-
-lowmem($0000-$7FFF) SRAM banks C,D,E
-
+**ZEUS memory map:**  
+highmem($8000-$FFFF) SRAM  
+lowmem($0000-$7FFF) SRAM banks C,D,E  
 lowmem($0000-$7FFF) EEPROM bank F
 
 During design development I decided to use SMD capacitors and resistors with footprints large enough for soldering iron. It made ZEUS modules compact and neat while still simple enough to solder. I have also designed a simple and compact shield which turns Arduino MEGA into EEPROM programmer, that is necessary for bootstrap coding. There is latest version of Arduino code for writing ZEUS Monitor to EEPROM with use of my shield.
