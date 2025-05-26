@@ -28,7 +28,8 @@ During design development I decided to use SMD capacitors and resistors with foo
 - ZEUS MEM128k (MEM512k) module  
 - ZEUS SIO module  
 - ZEUS TFT2.8 module  
-- ZEUS GPIO module (optional, up to 4 in a system)  
+- ZEUS GPIO module (optional, up to 4 in a system)
+
 **ZEUS features:** 
 * Apart from 40-wire Z80 CPU bus ZEUS has auxiliary bus for System Register Q0-Q7 (partially used for memory bank switching), interrupt daisy-chaining (see Z80 manual) AX0-AX7 and UART signals Rx/Tx.  
 * ZEUS is powered through USB-B port which also used for communication with PC in case UART-USB bridge IC (MCP2221A) is installed in backboard. In another case one can use FTDI header on ZEUS SIO module for communication with external world.  * 
