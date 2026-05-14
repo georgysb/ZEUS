@@ -21,7 +21,7 @@
 1x	dil-40 wide socket
 1x	dil-20 narrow socket
 2x	dil-14 narrow socket
-1x	dil-8 narrow socket (collet)
+1x	dil-8 narrow collet socket (for quartz generator)
 1x	PLS-2 (jumper)
 3x	SMD capacitor 1uF(1206)
 6x	SMD resistor 10k(0805)
@@ -54,7 +54,7 @@
 1x	PLD-20R header
 1x	dil-40 wide socket
 1x	dil-14 narrow socket
-1x	dil-8 narrow socket (collet)
+1x	dil-8 narrow collet socket (for quartz generator)
 2x	PLS-2 (jumper)
 1x	PLD-8 (jumper header)
 1x	PLD-16 (jumper header)
