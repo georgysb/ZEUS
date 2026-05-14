@@ -7,7 +7,7 @@
 1x	LED corner red
 1x	LED corner green
 1x	dil-14 narrow socket
-1x	electrolytic capacitor 10uF
+1x	electrolytic capacitor 10uF (optional)
 1x	SMD capacitor 1uF(1206)
 1x	SMD resistor 10k(0805)
 2x	SMD resistor 1k(0805)
