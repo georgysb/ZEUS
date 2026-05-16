@@ -108,7 +108,7 @@
 ----------------------------------EEPROM-28pin Arduino MEGA programmer shield
 1x	ZIF-28 wide socket (DS1043-280G Connfly)
 1x	LED red
-1x	Tact switch SMD 6х6х4.3мм 
+1x	Tact switch SMD 6х6мм
 1x	SMD resistor 10k(0805)
 1x	SMD resistor 1k(0805)
 
