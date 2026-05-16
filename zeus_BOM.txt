@@ -36,7 +36,7 @@
 ----------------------------------ZEUS MEM128k/512k (module)
 1x	PLD-40R header
 1x	PLD-20R header
-1x	ZIF-28 wide socket
+1x	ZIF-28 wide socket (DS1043-280G Connfly)
 1x	dil-32 wide socket
 3x	dil-14 narrow socket
 1x	PLS-2 (jumper)
@@ -104,6 +104,14 @@
 1x	SN74HC32N (OR gate) dip-14
 1x	SN74HC00N (NAND gate) dip-14
 1x	SN74HC86N (XOR gate) dip-14
+
+----------------------------------EEPROM-28pin Arduino MEGA programmer shield
+1x	ZIF-28 wide socket (DS1043-280G Connfly)
+1x	LED red
+1x	Tact switch SMD 6х6х4.3мм 
+1x	SMD resistor 10k(0805)
+1x	SMD resistor 1k(0805)
+
 ----------------------------------MISC
 10x	jumper 6mm
 1x	jumper 13.7mm blue
