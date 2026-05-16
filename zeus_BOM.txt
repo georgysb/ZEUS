@@ -2,10 +2,10 @@
 6x	PBD-40 header
 6x	PBD-20 header
 1x	USB socket (type B)
-1x	SMTS-102-2C3 (spdt switch)
-1x	tactile button corner
-1x	LED corner red
-1x	LED corner green
+1x	SPDT switch (SMTS-102-2C3)
+1x	Tact switch R (1-1825027-7)
+1x	LED R red (L-1503CB/1ID)
+1x	LED R green (L-1503CB/1GD)
 1x	dil-14 narrow socket
 1x	electrolytic capacitor 10uF (optional)
 1x	SMD capacitor 1uF(1206)
