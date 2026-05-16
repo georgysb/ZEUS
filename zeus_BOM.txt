@@ -117,7 +117,7 @@
 1x	jumper 13.7mm blue
 1x	jumper 13.7mm red
 
-4x	spacer M-F 15mm
-2x	spacer M-M 20mm
-4x	spacer M-F 6mm
-4x	spacer M-M 6mm
+4x	M3 spacer M-F 15mm
+2x	M3 spacer M-M 20mm
+4x	M3 spacer M-F 6mm
+4x	M3 spacer M-M 6mm
