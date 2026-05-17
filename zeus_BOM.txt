@@ -117,6 +117,7 @@
 1x	PBD-20 header
 2x	PLD-40 header (straight)
 2x	PLD-20 header (straight)
+
 ----------------------------------MISC
 10x	jumper 6mm
 1x	jumper 13.7mm blue
