@@ -44,7 +44,7 @@
 2x	SMD capacitor 1uF(1206)
 6x	SMD resistor 10k(0805)
 
-1x	AT28C256-15PU (EEPROM 32kB) dip-28 (or FM1808-70-P for 10MHz insitu write capability)
+1x	AT28C256-15PU (EEPROM 32kB) dip-28 (or FM1808-70-P for 10MHz in situ write capability)
 1x	AS6C1008/AS6C4008 (SRAM 128k/512k) dip-32
 2x	SN74HC32N (OR gate) dip-14
 1x	SN74HC00N (NAND gate) dip-14
