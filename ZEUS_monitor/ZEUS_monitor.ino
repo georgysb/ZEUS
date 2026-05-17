@@ -1,4 +1,4 @@
-int offset_font = 0x0200;
+uint16_t offset_font = 0x0200;
 const byte FONT_TABLE[] = {
  0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
  0x00,0x00,0x00,0x00,0x00,0x3C,0x42,0xA5,0x81,0xBD,0x42,0x3C,0x00,0x00,0x00,0x00,
@@ -135,9 +135,9 @@ const byte FONT_TABLE[] = {
  0x00,0x70,0x08,0x08,0x08,0x08,0x08,0x06,0x08,0x08,0x08,0x08,0x08,0x70,0x00,0x00,
  0x00,0x00,0x00,0x00,0x00,0x00,0x61,0x99,0x86,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
  0x00,0x00,0x00,0x00,0x10,0x38,0x44,0x82,0x82,0x82,0x82,0xFE,0x00,0x00,0x00,0x00}; //FONT table
-int blocksize_font = sizeof(FONT_TABLE);
+uint16_t blocksize_font = sizeof(FONT_TABLE);
 //================================================================================ Keyboard scan codes table
-int offset_scan = 0x1200;
+uint16_t offset_scan = 0x1200;
 const byte SCAN_TABLE[] = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0x60, 0x00,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x71, 0x31, 0x00, 0x00, 0x00, 0x7a, 0x73, 0x61, 0x77, 0x32, 0x00,
@@ -156,10 +156,10 @@ const byte SCAN_TABLE[] = {
 0x00, 0x00, 0x22, 0x00, 0x7b, 0x2b, 0x00, 0x00, 0x00, 0x00, 0x0d, 0x7d, 0x00, 0x7c, 0x00, 0x00,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x31, 0x00, 0x34, 0x37, 0x00, 0x00, 0x00,
 0x30, 0x2e, 0x32, 0x35, 0x36, 0x38, 0x00, 0x00, 0x00, 0x2b, 0x33, 0x2d, 0x2a, 0x39, 0x00, 0x00};
-int blocksize_scan = sizeof(SCAN_TABLE);
+uint16_t blocksize_scan = sizeof(SCAN_TABLE);
 
 //================================================================================ Page 0
-int offset_0 = 0x0000;
+uint16_t offset_0 = 0x0000;
 const byte BLOCK_0[] = {
 0x00, 0xC3, 0x00, 0x7F, 0xFF, 0xFF, 0xFF, 0xFF, // RST 0x00 jump PRIMER
 0x00, 0xC3, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, // RST 0x08
@@ -173,6 +173,7 @@ const byte BLOCK_0[] = {
 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, // lowercase hex table $8050
 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,                         // reserved 0x60-0x65
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xED, 0x45, // NMI primer 0x66-0x6F
+
 0x63, 0x6C, 0x72,             // 0x8070 "clr"
 0x64, 0x75, 0x6D, 0x70, 0x20, // 0x8073 "dump "
 0x73, 0x65, 0x6E, 0x64, 0x20, // 0x8078 "send "
@@ -187,9 +188,9 @@ const byte BLOCK_0[] = {
 0x63, 0x72, 0x63, 0x37, 0x20, // 0x80A3 "crc7 "
 0x73, 0x64, 0x69, 0x20,       // 0x80A8 "sdi "
 0xFF};
-int blocksize_0 = sizeof(BLOCK_0);
+uint16_t blocksize_0 = sizeof(BLOCK_0);
 //================================================================================ INTVEC table
-int offset_intvec = 0x0100;
+uint16_t offset_intvec = 0x0100;
 const byte INTVEC_TABLE[] = {
 0x00, 0xFC, 
 0x00, 0xFC, 
@@ -200,9 +201,9 @@ const byte INTVEC_TABLE[] = {
 0x00, 0x94, //SIO port A (UART)
 0x24, 0xFC, //SIO port A (UART) special condition
 0xFF}; //SIO interrupt table
-int blocksize_intvec = sizeof(INTVEC_TABLE);
+uint16_t blocksize_intvec = sizeof(INTVEC_TABLE);
 //================================================================================ basic IO subroutines
-int offset_bios = 0x1300;
+uint16_t offset_bios = 0x1300;
 const byte BLOCK_BIOs[] = {
 0xFB, 0xED, 0x4D, //>SIO void handler $9300(+0x0003)
 //---------------
@@ -270,10 +271,10 @@ const byte BLOCK_BIOs[] = {
 0x3E, 0x5A, 0xB9, 0x20, 0x0C, 0x3E, 0xF0, 0xB8, 0x20, 0x07, 0x3E, 0x0D, 0xD3, 0x00, 0xCD, 0x3C, 0xFC, // check Enter release
 0x21, 0x80, 0xFE, 0x71, 0xC1, 0xFB, 0xED, 0x4D, //jp4: not good for print
 0xFF};
-int blocksize_bios = sizeof(BLOCK_BIOs);
+uint16_t blocksize_bios = sizeof(BLOCK_BIOs);
 
 //================================================================================ CMDs PARSER
-int offset_parser = 0x1500;
+uint16_t offset_parser = 0x1500;
 const byte BLOCK_PARSER[] = {
 0xC5, 0xE5, //>Hex parse (input DE output A) $9500(+0x003C)
 0x01, 0x10, 0x00, 0x21, 0x5F, 0x80, 0x7A, 0xED, 0xB9, 0x79, 0x28, 0x0A, 
@@ -309,10 +310,10 @@ const byte BLOCK_PARSER[] = {
 0xCD, 0x38, 0xFC, // go Syntax error
 0xE1, 0xC1, 0xC9, 
 0xFF};
-int blocksize_parser = sizeof(BLOCK_PARSER);
+uint16_t blocksize_parser = sizeof(BLOCK_PARSER);
 
 //================================================================================ CMDs
-int offset_cmds = 0x1700;
+uint16_t offset_cmds = 0x1700;
 const byte BLOCK_CMDs[] = {
 //---------------//>"clr" command $9700(+0x007E)
 0x16, 0x36, 0xCD, 0x0C, 0x93, 	
@@ -445,10 +446,10 @@ const byte BLOCK_CMDs[] = {
 0xDD, 0x4E, 0x00, 0x21, 0x00, 0xFC, 0xCD, 0xA8, 0xFC, 0x23, 0x0D, 0x20, 0xF9, 
 0x3E, 0x01, 0xD3, 0x01, 
 0xC9, 0xFF};
-int blocksize_cmds = sizeof(BLOCK_CMDs);
+uint16_t blocksize_cmds = sizeof(BLOCK_CMDs);
 
 //================================================================================ SD routines
-int offset_sd = 0x1B00;
+uint16_t offset_sd = 0x1B00;
 const byte BLOCK_SD[] = {
 //---------------//crc7_add [input BC last byte pointer] $9B00(+0x003D)
 0xC5, 0xE1, 0x7E, 0x26, 0xFC, 0x77, 0xAF, 0xBD, 0x28, 0x04, 0x2D, 0x60, 0x18, 0xF4, 
@@ -474,14 +475,13 @@ const byte BLOCK_SD[] = {
 0xC8, 0xDF, 0xDB, 0x01, 0xC8, 0x57, 0x37, 0x20, 0x01, 0x3F, 0xCB, 0x16, 0xC8, 0x9F, 0xD3, 0x01, 0x0D, 0x20, 0xED, 
 0xC1, 
 0xC9, 0xFF};
-int blocksize_sd = sizeof(BLOCK_SD);
+uint16_t blocksize_sd = sizeof(BLOCK_SD);
 
 //================================================================================ SETUP
-int offset_setup = 0x2000;
+uint16_t offset_setup = 0x2000;
 const byte BLOCK_SETUP[] = {
 0x31, 0xFF, 0xFF, //set SP to 0xFFFF
 0x3E, 0x81, 0xED, 0x47, //set int table to $8100
-//---------------------------
 //---------------------------------------------------- 2BYTE values & pointers $FE00
 0x21, 0x00, 0x82, //font table pointer $8200
 0x22, 0x00, 0xFE, //$FE00
@@ -502,7 +502,6 @@ const byte BLOCK_SETUP[] = {
 0x36, 0x00,       //LD (HL), 0 :prev keyb char
 0x21, 0x81, 0xFE, //$FE81 <- 0xFF :SYSR state
 0x36, 0xFF, 
-//---------------------------------------------------- 
 //---------------------------------------------------- IO CONFIG
 0x3E, 0x03, 0xD3, 0x12, //PIO ports config (TFT+SD)
 0x3E, 0xCF, 0xD3, 0x12, 
@@ -539,7 +538,6 @@ const byte BLOCK_SETUP[] = {
 0x3E, 0x1C, 0xD3, 0x03, //int.vectors on
 0x3E, 0x02, 0xD3, 0x03, 
 0x3E, 0x00, 0xD3, 0x03, 
-//---------------------------
 //----------------------------------------------------------- TFT ILI9341 init.
 0x16, 0xC0, 0xCD, 0x0C, 0x93, // com (0xC0) Power control
 0x16, 0x17, 0xCD, 0x18, 0x93, // GVDD < (Vcc-0.5V)
@@ -608,17 +606,17 @@ const byte BLOCK_SETUP[] = {
 0x3E, 0x53, 0xD3, 0x00, //UART <- "S"
 
 0x3E, 0x0D, 0xD3, 0x00, //UART <- "cr"
-//----------------------------------------------------------------------- Banks ID
-0x3E, 0xF0, 0x06, 0xFF, //A,B <- addressed banks range
-0xD3, 0xF0,             //sys reg <- A
-0xC5, 0x21, 0x00, 0x80, 0x11, 0x00, 0x00, 0x01, 0x70, 0x00, 0xED, 0xB0, 0xC1, //copy 0x0070 bytes block 0x8000 -> 0x0000
+//----------------------------------------------------------------------- Banks ID init
+0x3E, 0xF0, 0x06, 0xFF, //A,B <- addressed banks range (0-F)
+0xD3, 0xF0,             //sys reg <- A (bank switch)
+0xC5, 0x21, 0x00, 0x80, 0x11, 0x00, 0x00, 0x01, 0x70, 0x00, 0xED, 0xB0, 0xC1, //copy 0x0070 bytes block 0x8000 -> 0x0000 (page 0)
 0x32, 0x07, 0x00, 0x3C, 0xB8, 0X20, 0xEA, //$0007 <- bank identifiers
 //----------------------------------------------------------------------- Banks ID check
 0x0E, 0xF0, 0x06, 0xFE, 
 0x3E, 0xEF, 0xB8, 0X28, 0x0B, 
 0xED, 0x41, 0x3A, 0x07, 0x00, 0xB8, 0X20, 0x03, 0x05, 0X18, 0xF0,  
 0x11, 0x0E, 0x26, 0xCD, 0x14, 0xFC, 0x3E, 0xFF, 0x90, 0xCD, 0x34, 0xFC, //aval. banks number print
-0x16, 0x25, 0xCD, 0x14, 0xFC, 0x3E, 0x2F, 0xCD, 0x18, 0xFC, //print "/"
+0x16, 0x25, 0xCD, 0x14, 0xFC, 0x3E, 0x2F, 0xCD, 0x18, 0xFC,             //print "/"
 //----------------------------------------------------------------------- Bank E init
 0x3A, 0x81, 0xFE, 0x21, 0xFF, 0xFE, 0x77, 
 0x3E, 0xFE, 0xED, 0x67, 0x7E, 0xED, 0x67, 0x7E, //SYSREG state low nibble write
@@ -633,12 +631,12 @@ const byte BLOCK_SETUP[] = {
 
 0x76, 0x18, 0xFD, //Halt, JR -3
 0xFF}; 
-int blocksize_setup = sizeof(BLOCK_SETUP);
+uint16_t blocksize_setup = sizeof(BLOCK_SETUP);
 //================================================================================ PRIMER
-int offset_primer = 0x7F00;
+uint16_t offset_primer = 0x7F00;
 const byte BLOCK_PRIMER[] = {
-0x21, 0x00, 0x00, 0x11, 0x00, 0x80, 0x01, 0x00, 0x30, 0xED, 0xB0, //copy 0x3000 bytes block $0000 -> $8000 MONITOR CODE
-0x21, 0x20, 0x7F, 0x11, 0x00, 0xFC, 0x01, 0xE0, 0x00, 0xED, 0xB0, //copy 0x00E0 bytes block $7F20 -> $FC00 CALL table
+0x21, 0x00, 0x00, 0x11, 0x00, 0x80, 0x01, 0x00, 0x30, 0xED, 0xB0, //copy 0x3000 bytes block $0000 -> $8000 (MONITOR CODE)
+0x21, 0x20, 0x7F, 0x11, 0x00, 0xFC, 0x01, 0xE0, 0x00, 0xED, 0xB0, //copy 0x00E0 bytes block $7F20 -> $FC00 (CALL table)
 0x21, 0x00, 0xA0, //HL <-  Setup address
 0x22, 0x02, 0x80, //$8002  <-  HL
 0xC3, 0x00, 0x80, //jump $8000
@@ -688,94 +686,132 @@ const byte BLOCK_PRIMER[] = {
 0x00, 0xC3, 0x3D, 0x9B, //$FCA4 SD wr byte [input HL] $9B3D
 0x00, 0xC3, 0xBF, 0x9B, //$FCA8 SD rd byte [output (HL)] $9BBF
 0xFF};
-int blocksize_primer = sizeof(BLOCK_PRIMER);
+uint16_t blocksize_primer = sizeof(BLOCK_PRIMER);
 
 ////================================================================================
 //                                                                      ARDUINO MEGA code
 ////================================================================================
-#define READ 39
-#define WRITE 29  //LED
+#define READ 39   //OE#
+#define WRITE 29  //WE# also LED
 #define BUTTON 26
 const char ADDR[] = {46,44,42,40, 38,36,34,32, 33,35,41,37, 30,31,28,43}; //addr pins; pin43 = CE#
 const char DATA[] = {48,50,52,53, 51,49,47,45}; //data pins
 char report[15];
 char output[15];
 int ButtonState;
+uint16_t bytesWritten = 0;
 
-byte readEEPROM(unsigned int address){
-  for (int n=0; n<8; n++){pinMode(DATA[n], INPUT);}
-  byte data = 0;
-  digitalWrite(READ, 1);
-  digitalWrite(WRITE, 1);
-  for (int n=0; n<16; n++){digitalWrite(ADDR[n],bitRead(address,n));}
-  digitalWrite(READ, 0);
-  for (int n=0; n<8; n++){data = (data<<1) | digitalRead(DATA[7-n]);}
-  digitalWrite(READ, 1);
+bool EEPROMtype = 0; //0 - AT28C256-15PU; 1 - FM1808-70-P <<<<<<<<<<<<<<<<< EEPROM type select
+uint16_t WriteDelay = EEPROMtype ? 0 : 10; //in milliseconds
+//--------------------------------------------------------------read/write functions definition
+uint8_t readEEPROM(uint16_t address){
+  uint8_t data = 0;
+  for (uint8_t n=0; n<16; n++) digitalWrite(ADDR[n], bitRead(address,n)); //set address pins + CE# ON for addr < 0x8000
+  digitalWrite(READ, 0);  //OE# on
+  __asm__ __volatile__ ("nop"); //data setup time
+  for (uint8_t n=0; n<8; n++) data = (data<<1) | digitalRead(DATA[7-n]); //read data pins
+  digitalWrite(ADDR[15], 1);  //CE# off
+  digitalWrite(READ, 1);  //OE# off
+  __asm__ __volatile__ ("nop"); //data setup time
   return data;
 }
-void writeEEPROM(unsigned int address, byte data){
-  for (int n=0; n<8; n++){pinMode(DATA[n], OUTPUT);}
-  digitalWrite(READ, 1);
-  digitalWrite(WRITE, 1);
-  for (int n=0; n<16; n++){digitalWrite(ADDR[n],bitRead(address,n));}
-  delay(7);
-  digitalWrite(WRITE, 0);  //LED on
-  for (int n=0; n<8; n++){digitalWrite(DATA[n],bitRead(data,n));}
-  delay(6);
-  digitalWrite(WRITE, 1);  //LED off
-  }
 
-void setup() {
-  for (int n=0; n<16; n++){pinMode(ADDR[n], OUTPUT);}
+void writeEEPROM(uint16_t address, byte data){
+  for (uint8_t n=0; n<16; n++) digitalWrite(ADDR[n], bitRead(address,n)); //set address pins + CE# ON for addr < 0x8000
+  digitalWrite(WRITE, 0);  //WE# on
+  __asm__ __volatile__ ("nop"); //addr hold time
+  for (int n=0; n<8; n++) digitalWrite(DATA[n], bitRead(data,n)); //set data pins
+  __asm__ __volatile__ ("nop"); //data setup time
   digitalWrite(ADDR[15], 1);  //CE# off
+  __asm__ __volatile__ ("nop"); //data hold time
+  digitalWrite(WRITE, 1);     //WE# off
+  delay(WriteDelay);  //AT28C256-15PU write cycle finalization
+  __asm__ __volatile__ ("nop");
+}
+
+void writePageEEPROM(uint16_t startAddress, byte data, uint16_t length){  //writes to AT28C256-15PU up to 64 bytes
+  for (int i = 0; i < length; i++) {
+    uint16_t address = startAddress + i;
+    for (uint8_t n=0; n<16; n++) digitalWrite(ADDR[n], bitRead(address,n)); //set address pins + CE# ON for addr < 0x8000
+    for (int n=0; n<8; n++) digitalWrite(DATA[n], bitRead(data,n)); //set data pins
+    digitalWrite(WRITE, 0);
+    __asm__ __volatile__ ("nop"); 
+    digitalWrite(WRITE, 1);
+  }
+  delay(WriteDelay);  //AT28C256-15PU write cycle finalization
+  digitalWrite(ADDR[15], 1);  //CE# off
+}
+
+void writeBufferEEPROM(uint16_t startAddress, uint8_t data, uint16_t totalLength) { //writes large buffer of dummy bytes
+  if (!EEPROMtype) {  //0 - AT28C256-15PU
+    bytesWritten = 0;
+    while (bytesWritten < totalLength) {
+      uint16_t maxInPage = 64 - ((startAddress + bytesWritten) % 64);
+      uint16_t currentBatch = min(maxInPage, totalLength - bytesWritten);
+      writePageEEPROM(startAddress + bytesWritten, data, currentBatch);
+      bytesWritten += currentBatch;
+    }
+  }
+  else if(EEPROMtype = 1) { //1 - FM1808-70-P
+    for(uint16_t j=0; j<totalLength; j++) {writeEEPROM(startAddress + j, data); bytesWritten++;}
+  }
+}
+//------------------------------------------------------------Main code
+void setup() {
+  for (uint8_t n = 0; n < 16; n++) pinMode(ADDR[n], OUTPUT);
+  for (uint8_t n = 0; n < 8; n++) pinMode(DATA[n], INPUT);
   pinMode(READ, OUTPUT);
   pinMode(WRITE, OUTPUT);
   pinMode(BUTTON, INPUT);
-  digitalWrite(WRITE, 0);
-  digitalWrite(READ, 1);
+
+  digitalWrite(ADDR[15], 1);  //CE# off
+  digitalWrite(READ, 1);      //OE# off
+  digitalWrite(WRITE, 1);     //WE# off
   Serial.begin(115200);
-  delay(100);
-  digitalWrite(WRITE, 1);
 }
 
 void loop() {
   unsigned int addr_in = 0;
   if(!digitalRead(BUTTON)) {
-   int byteswrit = 0;
-  //  for(int j=0; j<0x0100; j++){writeEEPROM(0x7e00 + j, 0xFF); byteswrit++;}
+    for (uint8_t n = 0; n < 8; n++) pinMode(DATA[n], OUTPUT);
+    bytesWritten = 0;
+    //----------------------------------------Write dummy bytes
+    Serial.println("writing dummy bytes");
+    writeBufferEEPROM(0x0000, 0xff, 0x8000);
+    //----------------------------------------Write ZEUS firmware
+    Serial.println("writing Font Table");
+    for(uint16_t j=0; j<blocksize_font; j++) {writeEEPROM(offset_font + j, FONT_TABLE[j]); bytesWritten++;}
+    Serial.println("writing Scan Table");
+    for(uint16_t j=0; j<blocksize_scan; j++) {writeEEPROM(offset_scan + j, SCAN_TABLE[j]); bytesWritten++;}
 
-   Serial.println("writing Font Table");
-   for(int j=0; j<blocksize_font; j++){writeEEPROM(offset_font + j, FONT_TABLE[j]); byteswrit++;}
-   Serial.println("writing Scan Table");
-   for(int j=0; j<blocksize_scan; j++){writeEEPROM(offset_scan + j, SCAN_TABLE[j]); byteswrit++;}
+    Serial.println("writing Page 0");
+    for(uint16_t j=0; j<blocksize_0; j++) {writeEEPROM(offset_0 + j, BLOCK_0[j]); bytesWritten++;}
+    Serial.println("writing IntVecs");
+    for(uint16_t j=0; j<blocksize_intvec; j++) {writeEEPROM(offset_intvec + j, INTVEC_TABLE[j]); bytesWritten++;}
+    Serial.println("writing BIOs");
+    for(uint16_t j=0; j<blocksize_bios; j++) {writeEEPROM(offset_bios + j, BLOCK_BIOs[j]); bytesWritten++;}
 
-   Serial.println("writing Page 0");
-   for(int j=0; j<blocksize_0; j++){writeEEPROM(offset_0 + j, BLOCK_0[j]); byteswrit++;}
-   Serial.println("writing IntVecs");
-   for(int j=0; j<blocksize_intvec; j++){writeEEPROM(offset_intvec + j, INTVEC_TABLE[j]); byteswrit++;}
-   Serial.println("writing BIOs");
-   for(int j=0; j<blocksize_bios; j++){writeEEPROM(offset_bios + j, BLOCK_BIOs[j]); byteswrit++;}
+    Serial.println("writing Parser");
+    for(uint16_t j=0; j<blocksize_parser; j++) {writeEEPROM(offset_parser + j, BLOCK_PARSER[j]); bytesWritten++;}
+    Serial.println("writing CMDs");
+    for(uint16_t j=0; j<blocksize_cmds; j++) {writeEEPROM(offset_cmds + j, BLOCK_CMDs[j]); bytesWritten++;}
+    Serial.println("writing SD");
+    for(uint16_t j=0; j<blocksize_sd; j++) {writeEEPROM(offset_sd + j, BLOCK_SD[j]); bytesWritten++;}
 
-   Serial.println("writing Parser");
-   for(int j=0; j<blocksize_parser; j++){writeEEPROM(offset_parser + j, BLOCK_PARSER[j]); byteswrit++;}
-   Serial.println("writing CMDs");
-   for(int j=0; j<blocksize_cmds; j++){writeEEPROM(offset_cmds + j, BLOCK_CMDs[j]); byteswrit++;}
-   Serial.println("writing SD");
-   for(int j=0; j<blocksize_sd; j++){writeEEPROM(offset_sd + j, BLOCK_SD[j]); byteswrit++;}
-
-   Serial.println("writing Setup");
-   for(int j=0; j<blocksize_setup; j++){writeEEPROM(offset_setup + j, BLOCK_SETUP[j]); byteswrit++;}
-   Serial.println("writing Primer");
-   for(int j=0; j<blocksize_primer; j++){writeEEPROM(offset_primer + j, BLOCK_PRIMER[j]); byteswrit++;}
-
-    digitalWrite(ADDR[15], 1);  //CE# off
-    sprintf(report, "0x%04x bytes written", byteswrit);
+    Serial.println("writing Setup");
+    for(uint16_t j=0; j<blocksize_setup; j++) {writeEEPROM(offset_setup + j, BLOCK_SETUP[j]); bytesWritten++;}
+    Serial.println("writing Primer");
+    for(uint16_t j=0; j<blocksize_primer; j++) {writeEEPROM(offset_primer + j, BLOCK_PRIMER[j]); bytesWritten++;}
+    //----------------------------------------
+    for (uint8_t n = 0; n < 8; n++) pinMode(DATA[n], INPUT);
+    sprintf(report, "0x%04x bytes written", bytesWritten);
     Serial.println(report);
+    delay(1000);
   }
-
+  //-------------------------1 byte read with Arduino IDE Serial Monitor (set No Line Ending, 115200 baud)
   if(Serial.available()) {
-    addr_in = int(Serial.parseInt());
+    addr_in = uint16_t(Serial.parseInt());
     byte data1 = readEEPROM(addr_in);
-    sprintf(output, "%04x %02x", addr_in, data1); Serial.println(output);    
+    sprintf(output, "%04x %02x", addr_in, data1); Serial.println(output);
   }
 }
