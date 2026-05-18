@@ -704,23 +704,23 @@ uint16_t bytesWritten = 0;
 bool EEPROMtype = 0; //0 - AT28C256-15PU; 1 - FM1808-70-P <<<<<<<<<<<<<<<<< EEPROM type select
 uint16_t WriteDelay = EEPROMtype ? 0 : 10; //in milliseconds
 //--------------------------------------------------------------read/write functions definition
-uint8_t readEEPROM(uint16_t address){
+uint8_t readEEPROM(uint16_t address) {
   uint8_t data = 0;
-  for (uint8_t n=0; n<16; n++) digitalWrite(ADDR[n], bitRead(address,n)); //set address pins + CE# ON for addr < 0x8000
+  for(uint8_t n=0; n<16; n++) digitalWrite(ADDR[n], bitRead(address, n)); //set address pins + CE# ON for addr < 0x8000
   digitalWrite(READ, 0);  //OE# on
   __asm__ __volatile__ ("nop"); //data setup time
-  for (uint8_t n=0; n<8; n++) data = (data<<1) | digitalRead(DATA[7-n]); //read data pins
+  for(uint8_t n=0; n<8; n++) data = (data<<1) | digitalRead(DATA[7-n]); //read data pins
   digitalWrite(ADDR[15], 1);  //CE# off
   digitalWrite(READ, 1);  //OE# off
   __asm__ __volatile__ ("nop"); //data setup time
   return data;
 }
 
-void writeEEPROM(uint16_t address, byte data){
-  for (uint8_t n=0; n<16; n++) digitalWrite(ADDR[n], bitRead(address,n)); //set address pins + CE# ON for addr < 0x8000
+void writeEEPROM(uint16_t address, uint8_t data) {
+  for(uint8_t n=0; n<16; n++) digitalWrite(ADDR[n], bitRead(address, n)); //set address pins + CE# ON for addr < 0x8000
   digitalWrite(WRITE, 0);  //WE# on
   __asm__ __volatile__ ("nop"); //addr hold time
-  for (int n=0; n<8; n++) digitalWrite(DATA[n], bitRead(data,n)); //set data pins
+  for(int n=0; n<8; n++) digitalWrite(DATA[n], bitRead(data, n)); //set data pins
   __asm__ __volatile__ ("nop"); //data setup time
   digitalWrite(ADDR[15], 1);  //CE# off
   __asm__ __volatile__ ("nop"); //data hold time
@@ -729,13 +729,13 @@ void writeEEPROM(uint16_t address, byte data){
   __asm__ __volatile__ ("nop");
 }
 
-void writePageEEPROM(uint16_t startAddress, byte data, uint16_t length){  //writes to AT28C256-15PU up to 64 bytes
-  for (int i = 0; i < length; i++) {
+void writePageEEPROM(uint16_t startAddress, uint8_t data, uint16_t length) {  //writes to AT28C256-15PU up to 64 bytes
+  for(int i=0; i<length; i++) {
     uint16_t address = startAddress + i;
-    for (uint8_t n=0; n<16; n++) digitalWrite(ADDR[n], bitRead(address,n)); //set address pins + CE# ON for addr < 0x8000
-    for (int n=0; n<8; n++) digitalWrite(DATA[n], bitRead(data,n)); //set data pins
+    for(uint8_t n=0; n<16; n++) digitalWrite(ADDR[n], bitRead(address, n)); //set address pins + CE# ON for addr < 0x8000
+    for(int n=0; n<8; n++) digitalWrite(DATA[n], bitRead(data, n)); //set data pins
     digitalWrite(WRITE, 0);
-    __asm__ __volatile__ ("nop"); 
+    __asm__ __volatile__ ("nop");
     digitalWrite(WRITE, 1);
   }
   delay(WriteDelay);  //AT28C256-15PU write cycle finalization
@@ -743,9 +743,9 @@ void writePageEEPROM(uint16_t startAddress, byte data, uint16_t length){  //writ
 }
 
 void writeBufferEEPROM(uint16_t startAddress, uint8_t data, uint16_t totalLength) { //writes large buffer of dummy bytes
-  if (!EEPROMtype) {  //0 - AT28C256-15PU
+  if(!EEPROMtype) {  //0 - AT28C256-15PU
     bytesWritten = 0;
-    while (bytesWritten < totalLength) {
+    while(bytesWritten < totalLength) {
       uint16_t maxInPage = 64 - ((startAddress + bytesWritten) % 64);
       uint16_t currentBatch = min(maxInPage, totalLength - bytesWritten);
       writePageEEPROM(startAddress + bytesWritten, data, currentBatch);
@@ -758,8 +758,8 @@ void writeBufferEEPROM(uint16_t startAddress, uint8_t data, uint16_t totalLength
 }
 //------------------------------------------------------------Main code
 void setup() {
-  for (uint8_t n = 0; n < 16; n++) pinMode(ADDR[n], OUTPUT);
-  for (uint8_t n = 0; n < 8; n++) pinMode(DATA[n], INPUT);
+  for(uint8_t n=0; n<16; n++) pinMode(ADDR[n], OUTPUT);
+  for(uint8_t n=0; n<8; n++) pinMode(DATA[n], INPUT);
   pinMode(READ, OUTPUT);
   pinMode(WRITE, OUTPUT);
   pinMode(BUTTON, INPUT);
@@ -773,7 +773,7 @@ void setup() {
 void loop() {
   unsigned int addr_in = 0;
   if(!digitalRead(BUTTON)) {
-    for (uint8_t n = 0; n < 8; n++) pinMode(DATA[n], OUTPUT);
+    for(uint8_t n=0; n<8; n++) pinMode(DATA[n], OUTPUT);
     bytesWritten = 0;
     //----------------------------------------Write dummy bytes
     Serial.println("writing dummy bytes");
@@ -803,7 +803,7 @@ void loop() {
     Serial.println("writing Primer");
     for(uint16_t j=0; j<blocksize_primer; j++) {writeEEPROM(offset_primer + j, BLOCK_PRIMER[j]); bytesWritten++;}
     //----------------------------------------
-    for (uint8_t n = 0; n < 8; n++) pinMode(DATA[n], INPUT);
+    for(uint8_t n=0; n<8; n++) pinMode(DATA[n], INPUT);
     sprintf(report, "0x%04x bytes written", bytesWritten);
     Serial.println(report);
     delay(1000);
